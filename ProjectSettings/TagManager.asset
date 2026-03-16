@@ -9,15 +9,16 @@ TagManager:
   - Receiver
   - Button
   - Wall
+  - FixedMirror
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Mirror
   - Water
   - UI
-  - 
-  - 
+  - MirrorPAPA
+  - Laser
   - 
   - 
   - 
