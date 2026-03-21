@@ -1,14 +1,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class InteracaoJogador : MonoBehaviour
 {
-    public float distanciaInteracao = 4f;
-    public float distanciaColagem = 3f;
+    [Header("Configurações de Distância")]
+    public float distanciaInteracao = 5f;
+    public float distanciaColagem = 4f;
+    public float offsetColagem = 0.45f;
+
+    [Header("Referências")]
     public Transform pontoParaSegurar;
     public GameObject textoAviso;
-    public float forcaSeguir = 15f;
-    public float offsetRotacaoY = 180f;
+    public float forcaSeguir = 25f;
 
     private GameObject objetoSegurado;
     private Rigidbody rbSegurado;
@@ -23,19 +27,18 @@ public class InteracaoJogador : MonoBehaviour
             else LargarEColar();
         }
 
-        // RODAR: Funciona para o que tens na mão OU o que olhas
         if (Keyboard.current.rKey.wasPressedThisFrame) TentarRodar();
     }
 
     void FixedUpdate()
     {
-        if (objetoSegurado != null && rbSegurado != null && !rbSegurado.isKinematic)
+        if (objetoSegurado != null && rbSegurado != null)
         {
-            Vector3 direcao = pontoParaSegurar.position - objetoSegurado.transform.position;
-            rbSegurado.linearVelocity = direcao * forcaSeguir;
+            Vector3 proximaPosicao = Vector3.Lerp(rbSegurado.position, pontoParaSegurar.position, Time.fixedDeltaTime * forcaSeguir);
+            rbSegurado.MovePosition(proximaPosicao);
 
-            Quaternion rotacaoAlvo = transform.rotation * Quaternion.Euler(0, offsetRotacaoY, 0);
-            rbSegurado.MoveRotation(Quaternion.Lerp(rbSegurado.rotation, rotacaoAlvo, Time.fixedDeltaTime * 10f));
+            Quaternion proximaRotacao = pontoParaSegurar.rotation * Quaternion.Euler(0, 180, 0);
+            rbSegurado.MoveRotation(Quaternion.Slerp(rbSegurado.rotation, proximaRotacao, Time.fixedDeltaTime * forcaSeguir));
         }
     }
 
@@ -44,22 +47,30 @@ public class InteracaoJogador : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, distanciaInteracao))
         {
-            if (hit.collider.CompareTag("Button"))
-            {
-                ControloLaser laser = Object.FindFirstObjectByType<ControloLaser>();
-                if (laser != null) laser.AlternarLaser();
-                return;
-            }
+            Rigidbody rb = hit.collider.GetComponentInParent<Rigidbody>();
+            bool ehMirror = hit.collider.CompareTag("Mirror") || (hit.collider.transform.parent != null && hit.collider.transform.parent.CompareTag("Mirror"));
 
-            if (hit.collider.CompareTag("Mirror"))
+            if (rb != null && ehMirror)
             {
-                rbSegurado = hit.collider.GetComponent<Rigidbody>() ?? hit.collider.GetComponentInParent<Rigidbody>();
-                if (rbSegurado != null)
-                {
-                    objetoSegurado = rbSegurado.gameObject;
-                    rbSegurado.isKinematic = false;
-                    rbSegurado.useGravity = false;
-                }
+                rbSegurado = rb;
+                objetoSegurado = rb.gameObject;
+
+                // --- SOLUÇÃO RADICAL ---
+                // Desliga todos os colliders do espelho. Se não há collider, não há empurrão.
+                Collider[] colls = objetoSegurado.GetComponentsInChildren<Collider>();
+                foreach (Collider c in colls) c.enabled = false;
+
+                rbSegurado.isKinematic = true;
+                rbSegurado.useGravity = false;
+                rbSegurado.linearVelocity = Vector3.zero;
+                rbSegurado.angularVelocity = Vector3.zero;
+
+                objetoSegurado.transform.SetParent(null);
+            }
+            else if (hit.collider.CompareTag("Button"))
+            {
+                var laser = Object.FindFirstObjectByType<ControloLaser>();
+                if (laser != null) laser.AlternarLaser();
             }
         }
     }
@@ -67,52 +78,78 @@ public class InteracaoJogador : MonoBehaviour
     void LargarEColar()
     {
         if (objetoSegurado == null) return;
+
         RaycastHit hit;
-        // Offset de 0.6f para garantir que ao rodar o espelho não atravessa a parede
-        if (Physics.Raycast(transform.position, transform.forward, out hit, distanciaColagem) && hit.collider.CompareTag("Wall"))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, distanciaColagem))
         {
-            rbSegurado.isKinematic = true;
-            rbSegurado.linearVelocity = Vector3.zero;
-            objetoSegurado.transform.position = hit.point + (hit.normal * 0.6f);
-            objetoSegurado.transform.rotation = Quaternion.LookRotation(hit.normal);
+            if (hit.collider.CompareTag("Wall"))
+            {
+                GameObject obj = objetoSegurado;
+                Rigidbody rb = rbSegurado;
+
+                StartCoroutine(ForcarPosicaoNaParede(obj, rb, hit.point, hit.normal));
+
+                objetoSegurado = null;
+                rbSegurado = null;
+                return;
+            }
         }
-        else { rbSegurado.isKinematic = false; rbSegurado.useGravity = true; }
-        objetoSegurado = null; rbSegurado = null;
+
+        // Se largar no chão, religa os colliders para ele não atravessar o mapa
+        AtivarColliders(objetoSegurado);
+
+        rbSegurado.isKinematic = false;
+        rbSegurado.useGravity = true;
+        objetoSegurado = null;
+        rbSegurado = null;
     }
 
-void TentarRodar()
-{
-    // 1. Se estivermos a segurar algo, rodamos esse objeto diretamente
-    if (objetoSegurado != null) 
+    void AtivarColliders(GameObject obj)
     {
-        MirrorRotate rot = objetoSegurado.GetComponent<MirrorRotate>() ?? objetoSegurado.GetComponentInParent<MirrorRotate>();
-        if (rot != null) 
-        {
-            rot.Rotate();
-            // Debug para termos a certeza que o código está a chegar aqui
-            Debug.Log("Rodei o espelho na mão!");
-        }
-        return; 
+        if (obj == null) return;
+        Collider[] colls = obj.GetComponentsInChildren<Collider>();
+        foreach (Collider c in colls) c.enabled = true;
     }
 
-    // 2. Se não estivermos a segurar nada, tentamos rodar o que o jogador está a olhar
-    RaycastHit hit;
-    if (Physics.Raycast(transform.position, transform.forward, out hit, distanciaInteracao))
+    IEnumerator ForcarPosicaoNaParede(GameObject obj, Rigidbody rb, Vector3 ponto, Vector3 normal)
     {
-        if (hit.collider.CompareTag("Mirror") || hit.collider.CompareTag("FixedMirror"))
+        rb.isKinematic = true;
+        rb.linearVelocity = Vector3.zero;
+
+        obj.transform.position = ponto + (normal * offsetColagem);
+        obj.transform.rotation = Quaternion.LookRotation(normal);
+
+        yield return new WaitForFixedUpdate();
+
+        // Religa os colliders depois de estar colado na parede
+        AtivarColliders(obj);
+    }
+
+    void TentarRodar()
+    {
+        GameObject alvo = (objetoSegurado != null) ? objetoSegurado : null;
+        if (alvo == null)
         {
-            MirrorRotate rot = hit.collider.GetComponent<MirrorRotate>() ?? hit.collider.GetComponentInParent<MirrorRotate>();
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, distanciaInteracao))
+            {
+                MirrorRotate rot = hit.collider.GetComponentInParent<MirrorRotate>() ?? hit.collider.GetComponentInChildren<MirrorRotate>();
+                if (rot != null) rot.Rotate();
+            }
+        }
+        else
+        {
+            MirrorRotate rot = alvo.GetComponent<MirrorRotate>() ?? alvo.GetComponentInChildren<MirrorRotate>();
             if (rot != null) rot.Rotate();
         }
     }
-}
 
     void VerificarMira()
     {
         if (textoAviso == null) return;
         RaycastHit hit;
         bool mirando = Physics.Raycast(transform.position, transform.forward, out hit, distanciaInteracao) &&
-                       (hit.collider.CompareTag("Button") || hit.collider.CompareTag("Mirror") || hit.collider.CompareTag("FixedMirror"));
+                       (hit.collider.CompareTag("Mirror") || hit.collider.CompareTag("Button"));
         textoAviso.SetActive(mirando);
     }
 }

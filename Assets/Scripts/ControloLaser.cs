@@ -3,46 +3,44 @@ using System.Collections.Generic;
 
 public class ControloLaser : MonoBehaviour
 {
-    private LineRenderer lr;
-    public bool estaLigado = true;
-    public int maxReflexoes = 10;
-    public float alcanceMaximo = 1000f;
+    private LineRenderer lineRenderer;
+    public Transform pontoDisparo;
+    public int maxReflexoes = 5;
+    public float distanciaMaxima = 100f;
+    public LayerMask camadasParaOcultar;
 
-    [Header("Filtro")]
-    [Tooltip("Selecione aqui a Layer do PLAYER e a Layer do PAI do espelho")]
-    public LayerMask camadasParaIgnorar;
+    public bool laserAtivo = false; // Opção no Inspector
 
-    void Start() { lr = GetComponent<LineRenderer>(); }
+    void Start()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+    }
 
     void Update()
     {
-        if (estaLigado && lr != null) { lr.enabled = true; DesenharLaser(); }
-        else if (lr != null) lr.enabled = false;
+        if (laserAtivo && lineRenderer != null) DesenharLaser();
+        else if (lineRenderer != null) lineRenderer.positionCount = 0;
     }
-
-    public void AlternarLaser() { estaLigado = !estaLigado; }
 
     void DesenharLaser()
     {
-        Vector3 origem = transform.position;
-        Vector3 direcao = transform.forward;
-        List<Vector3> pontos = new List<Vector3> { origem };
+        List<Vector3> pontos = new List<Vector3>();
+        pontos.Add(pontoDisparo.position);
+
+        Vector3 posicaoAtual = pontoDisparo.position;
+        Vector3 direcaoAtual = pontoDisparo.forward;
 
         for (int i = 0; i < maxReflexoes; i++)
         {
-            Ray raio = new Ray(origem, direcao);
             RaycastHit hit;
-
-            // Atravessa o Player e o "caixote" do Pai, mas bate no modelo visual (Filho)
-            if (Physics.Raycast(raio, out hit, alcanceMaximo, ~camadasParaIgnorar))
+            if (Physics.Raycast(posicaoAtual, direcaoAtual, out hit, distanciaMaxima, ~camadasParaOcultar))
             {
                 pontos.Add(hit.point);
 
                 if (hit.collider.CompareTag("Mirror") || hit.collider.CompareTag("FixedMirror"))
                 {
-                    // Reflete no ângulo exato do modelo visual
-                    direcao = Vector3.Reflect(direcao, hit.normal);
-                    origem = hit.point + (direcao * 0.02f);
+                    direcaoAtual = Vector3.Reflect(direcaoAtual, hit.normal);
+                    posicaoAtual = hit.point + (direcaoAtual * 0.01f);
                 }
                 else if (hit.collider.CompareTag("Receiver"))
                 {
@@ -54,11 +52,13 @@ public class ControloLaser : MonoBehaviour
             }
             else
             {
-                pontos.Add(origem + (direcao * alcanceMaximo));
+                pontos.Add(posicaoAtual + (direcaoAtual * distanciaMaxima));
                 break;
             }
         }
-        lr.positionCount = pontos.Count;
-        lr.SetPositions(pontos.ToArray());
+        lineRenderer.positionCount = pontos.Count;
+        lineRenderer.SetPositions(pontos.ToArray());
     }
+
+    public void AlternarLaser() { laserAtivo = !laserAtivo; }
 }
