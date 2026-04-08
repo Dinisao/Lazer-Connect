@@ -103,7 +103,7 @@ public class InteracaoJogador : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             if (obj == null) break;
-            obj.transform.position = posFinal;
+            obj.transform.position = new Vector3(Mathf.Round(posFinal.x), Mathf.Round(posFinal.y), Mathf.Round(posFinal.z));
             obj.transform.rotation = rotFinal;
             yield return new WaitForFixedUpdate();
         }
