@@ -23,8 +23,8 @@ public class ControloLaser : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
 
         // Configuração inicial de largura
-        lineRenderer.startWidth = 0.05f;
-        lineRenderer.endWidth = 0.05f;
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
 
         // Se tiveres esquecido de arrastar o material para o script, 
         // ele tenta pegar o que já está no componente LineRenderer
