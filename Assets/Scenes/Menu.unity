@@ -217,7 +217,10 @@ RectTransform:
   - {fileID: 249828255}
   - {fileID: 282164378}
   - {fileID: 950081056}
+<<<<<<< HEAD:Assets/Scenes/NIVEIS JORGE/Menu.unity
   - {fileID: 339603367}
+=======
+>>>>>>> parent of 8d269b8 (Levels Novos Arrnajados):Assets/Scenes/Menu.unity
   - {fileID: 1945479451}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -761,6 +764,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 282164377}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD:Assets/Scenes/NIVEIS JORGE/Menu.unity
 --- !u!1 &339603366
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,6 +898,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 339603366}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> parent of 8d269b8 (Levels Novos Arrnajados):Assets/Scenes/Menu.unity
 --- !u!1 &486959003
 GameObject:
   m_ObjectHideFlags: 0
