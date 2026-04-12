@@ -56,7 +56,7 @@ public class MenuManager : MonoBehaviour
 
     public void BotaoPlayNormal()
     {
-        SceneManager.LoadScene("Level 0");
+        SceneManager.LoadScene("JLevel 0");
     }
 
     public void EscolherNivelEspecifico(string nomeDaCena)
