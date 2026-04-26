@@ -8,6 +8,12 @@ public class InteracaoJogador : MonoBehaviour
     public float distanciaInteracao = 5f;
     public float distanciaColagem = 4f;
     public float offsetColagem = 0.45f;
+
+    [Header("Ajuste Fino na Mão")]
+    [Tooltip("Usa o Z para afastar o espelho da cara, o Y para o baixar, e o X para os lados.")]
+    public Vector3 offsetSegurar = new Vector3(0, 0, 0);
+
+    [Header("Referências")]
     public Transform pontoParaSegurar;
     public GameObject textoAviso;
     public float forcaSeguir = 25f;
@@ -34,7 +40,13 @@ public class InteracaoJogador : MonoBehaviour
     {
         if (objetoSegurado != null && rbSegurado != null)
         {
-            Vector3 proximaPosicao = Vector3.Lerp(rbSegurado.position, pontoParaSegurar.position, Time.fixedDeltaTime * forcaSeguir);
+            // Calcula a posição perfeita com o teu Ajuste Fino
+            Vector3 posicaoAlvo = pontoParaSegurar.position +
+                                  pontoParaSegurar.right * offsetSegurar.x +
+                                  pontoParaSegurar.up * offsetSegurar.y +
+                                  pontoParaSegurar.forward * offsetSegurar.z;
+
+            Vector3 proximaPosicao = Vector3.Lerp(rbSegurado.position, posicaoAlvo, Time.fixedDeltaTime * forcaSeguir);
             rbSegurado.MovePosition(proximaPosicao);
 
             // Mantém o espelho virado para a frente do jogador enquanto segura
@@ -50,7 +62,7 @@ public class InteracaoJogador : MonoBehaviour
         {
             Rigidbody rb = hit.collider.GetComponentInParent<Rigidbody>();
             bool ehMirror = hit.collider.CompareTag("Mirror") ||
-                           (hit.collider.transform.parent != null && hit.collider.transform.parent.CompareTag("Mirror"));
+                            (hit.collider.transform.parent != null && hit.collider.transform.parent.CompareTag("Mirror"));
 
             if (rb != null && ehMirror)
             {

@@ -10,6 +10,7 @@ TagManager:
   - Button
   - Wall
   - FixedMirror
+  - Caixa
   layers:
   - Default
   - TransparentFX
