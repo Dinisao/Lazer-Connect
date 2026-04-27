@@ -1570,6 +1570,8 @@ MonoBehaviour:
   distanciaColagem: 3
   offsetColagem: 0.45
   offsetSegurar: {x: 0.5, y: -1, z: -0.5}
+  tamanhoGrelha: 2
+  offsetGrelha: {x: 1, y: 1, z: 1}
   pontoParaSegurar: {fileID: 494235086}
   textoAviso: {fileID: 0}
   forcaSeguir: 20

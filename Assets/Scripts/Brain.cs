@@ -13,6 +13,12 @@ public class InteracaoJogador : MonoBehaviour
     [Tooltip("Usa o Z para afastar o espelho da cara, o Y para o baixar, e o X para os lados.")]
     public Vector3 offsetSegurar = new Vector3(0, 0, 0);
 
+    [Header("SISTEMA DE GRELHA (Snap Parede)")]
+    [Tooltip("O tamanho dos quadrados da parede. (Ex: 1, 2 ou 4)")]
+    public float tamanhoGrelha = 1f;
+    [Tooltip("Se o espelho colar em cima da linha em vez de no meio, põe 0.5 nos eixos aqui!")]
+    public Vector3 offsetGrelha = new Vector3(0, 0, 0);
+
     [Header("Referências")]
     public Transform pontoParaSegurar;
     public GameObject textoAviso;
@@ -109,7 +115,24 @@ public class InteracaoJogador : MonoBehaviour
     IEnumerator ForcarPosicaoNaParede(GameObject obj, Rigidbody rb, Vector3 pontoImpacto, Vector3 normalParede)
     {
         rb.isKinematic = true;
-        Vector3 posFinal = pontoImpacto + (normalParede * offsetColagem);
+
+        // --- MAGIA DO SNAP (ENCAIXE MAGNÉTICO) ---
+        Vector3 pontoSnap = pontoImpacto;
+
+        // Função matemática que arredonda para o quadrado mais próximo
+        float Arredondar(float valor, float tamanho, float offset)
+        {
+            if (tamanho == 0) return valor; // Previne erros caso ponhas 0 no inspector sem querer
+            return Mathf.Round((valor - offset) / tamanho) * tamanho + offset;
+        }
+
+        // Descobre que face da parede é esta, para NÃO arredondar a profundidade (Senão afundava)
+        if (Mathf.Abs(normalParede.x) < 0.5f) pontoSnap.x = Arredondar(pontoSnap.x, tamanhoGrelha, offsetGrelha.x);
+        if (Mathf.Abs(normalParede.y) < 0.5f) pontoSnap.y = Arredondar(pontoSnap.y, tamanhoGrelha, offsetGrelha.y);
+        if (Mathf.Abs(normalParede.z) < 0.5f) pontoSnap.z = Arredondar(pontoSnap.z, tamanhoGrelha, offsetGrelha.z);
+
+        // Aplica o encaixe mais o afastamento da parede
+        Vector3 posFinal = pontoSnap + (normalParede * offsetColagem);
         Quaternion rotFinal = Quaternion.LookRotation(normalParede, Vector3.up);
 
         for (int i = 0; i < 5; i++)

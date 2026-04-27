@@ -16,18 +16,17 @@ public class ControloLaser : MonoBehaviour
     public bool laserAtivo = false;
 
     [Header("Visual (Fix do Rosa)")]
-    public Material materialDoLaser; // Arraste o seu material para aqui no Inspector!
+    public Material materialDoLaser;
+
+    // NOVO: Tolerância para alinhar o laser automaticamente
+    private float limiteAlinhamento = 0.05f;
 
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
-
-        // Configuração inicial de largura
         lineRenderer.startWidth = 0.05f;
         lineRenderer.endWidth = 0.05f;
 
-        // Se tiveres esquecido de arrastar o material para o script, 
-        // ele tenta pegar o que já está no componente LineRenderer
         if (materialDoLaser == null && lineRenderer.sharedMaterial != null)
         {
             materialDoLaser = lineRenderer.sharedMaterial;
@@ -38,7 +37,6 @@ public class ControloLaser : MonoBehaviour
     {
         if (laserAtivo && pontoDisparo != null)
         {
-            // Garante que o material é aplicado antes de desenhar (evita o rosa)
             if (lineRenderer.sharedMaterial == null && materialDoLaser != null)
             {
                 lineRenderer.material = materialDoLaser;
@@ -60,9 +58,13 @@ public class ControloLaser : MonoBehaviour
         Vector3 posicaoAtual = pontoDisparo.position;
         Vector3 direcaoAtual = pontoDisparo.forward;
 
-        // MAGIA 1: Força o laser a nascer perfeitamente plano, ignorando inclinações do emissor
-        direcaoAtual.y = 0;
-        direcaoAtual.Normalize(); // Normalize garante que a velocidade/tamanho do vetor não se perde ao tirar o Y
+        // MAGIA INTELIGENTE: Se a inclinação inicial for um erro minúsculo, força a 0.
+        // Mas se for uma inclinação a sério (espelho virado para o chão), deixa passar!
+        if (Mathf.Abs(direcaoAtual.y) < limiteAlinhamento)
+        {
+            direcaoAtual.y = 0;
+            direcaoAtual.Normalize();
+        }
 
         for (int i = 0; i < maxReflexoes; i++)
         {
@@ -71,7 +73,6 @@ public class ControloLaser : MonoBehaviour
             {
                 pontos.Add(hit.point);
 
-                // Verifica Tag Mirror ou FixedMirror no objeto ou no pai
                 bool ehEspelho = hit.collider.CompareTag("Mirror") ||
                                  hit.collider.CompareTag("FixedMirror") ||
                                  (hit.collider.transform.parent != null &&
@@ -81,9 +82,12 @@ public class ControloLaser : MonoBehaviour
                 {
                     direcaoAtual = Vector3.Reflect(direcaoAtual, hit.normal);
 
-                    // MAGIA 2: Força o laser a continuar plano depois de bater num espelho torto
-                    direcaoAtual.y = 0;
-                    direcaoAtual.Normalize();
+                    // MAGIA INTELIGENTE APÓS REFLETIR: Corrige ressaltos com erros milimétricos.
+                    if (Mathf.Abs(direcaoAtual.y) < limiteAlinhamento)
+                    {
+                        direcaoAtual.y = 0;
+                        direcaoAtual.Normalize();
+                    }
 
                     posicaoAtual = hit.point + (direcaoAtual * 0.01f);
                 }
@@ -109,8 +113,6 @@ public class ControloLaser : MonoBehaviour
     public void AlternarLaser()
     {
         laserAtivo = !laserAtivo;
-
-        // Força a limpeza visual imediata ao desligar
         if (!laserAtivo) lineRenderer.positionCount = 0;
     }
 }

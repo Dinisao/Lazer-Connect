@@ -12,13 +12,13 @@ public class EmpurrarArmario : MonoBehaviour
     public Transform posicaoSegurar;
 
     private Rigidbody armarioSegurado;
-    private Vector3 distanciaInicial; // A variável mágica que resolve o problema!
+    private Vector3 distanciaInicial;
+    private Vector3 eixoDeMovimento;
 
     void Update()
     {
         if (Keyboard.current == null) return;
 
-        // Ao carregar no E, tenta agarrar ou larga
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             if (armarioSegurado == null) TentarAgarrar();
@@ -30,17 +30,14 @@ public class EmpurrarArmario : MonoBehaviour
     {
         if (armarioSegurado != null)
         {
-            // 1. Calcula onde o armário DEVE estar (a mão + a distância original)
             Vector3 posicaoAlvo = posicaoSegurar.position + distanciaInicial;
+            Vector3 direcaoLivre = posicaoAlvo - armarioSegurado.position;
+            direcaoLivre.y = 0;
 
-            // 2. Descobre a direção para ir para esse ponto alvo
-            Vector3 direcao = posicaoAlvo - armarioSegurado.position;
+            // Filtra o movimento pelo carril exato da face tocada
+            Vector3 direcaoRestrita = Vector3.Project(direcaoLivre, eixoDeMovimento);
 
-            // 3. Prende ao chão (Impede que levante voo)
-            direcao.y = 0;
-
-            // 4. Aplica a força
-            armarioSegurado.linearVelocity = direcao * forcaArrastar;
+            armarioSegurado.linearVelocity = direcaoRestrita * forcaArrastar;
         }
     }
 
@@ -56,12 +53,17 @@ public class EmpurrarArmario : MonoBehaviour
 
                 if (armarioSegurado != null)
                 {
-                    // Baixamos o atrito (Linear Damping) para ele deslizar
                     armarioSegurado.linearDamping = 5f;
 
-                    // A MAGIA: Guarda a distância exata entre a mão e o armário no momento do clique!
                     distanciaInicial = armarioSegurado.position - posicaoSegurar.position;
-                    distanciaInicial.y = 0; // Ignora diferenças de altura
+                    distanciaInicial.y = 0;
+
+                    // A MAGIA DEFINITIVA: hit.normal!
+                    // Em vez de confiar no modelo 3D (que pode estar estragado), 
+                    // criamos o carril com base na face exata onde o teu raio bateu.
+                    eixoDeMovimento = hit.normal;
+                    eixoDeMovimento.y = 0;
+                    eixoDeMovimento.Normalize();
                 }
             }
         }
@@ -71,7 +73,6 @@ public class EmpurrarArmario : MonoBehaviour
     {
         if (armarioSegurado != null)
         {
-            // Devolvemos o atrito a 100 para ele travar a fundo
             armarioSegurado.linearDamping = 100f;
             armarioSegurado = null;
         }

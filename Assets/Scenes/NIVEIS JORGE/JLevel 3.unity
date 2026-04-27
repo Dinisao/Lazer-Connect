@@ -1599,6 +1599,8 @@ MonoBehaviour:
   distanciaColagem: 3
   offsetColagem: 0.45
   offsetSegurar: {x: 0.5, y: -1, z: -0.5}
+  tamanhoGrelha: 2
+  offsetGrelha: {x: 1, y: 1, z: 1}
   pontoParaSegurar: {fileID: 494235086}
   textoAviso: {fileID: 0}
   forcaSeguir: 20
@@ -6359,7 +6361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad30e78ea1c3ed144b5d4e2d67c4a56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EmpurrarArmario
-  distanciaPegar: 3.5
+  distanciaPegar: 2.5
   forcaArrastar: 10
   cameraJogador: {fileID: 491390486}
   posicaoSegurar: {fileID: 494235086}
@@ -6388,7 +6390,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!4 &8980608036888854240
 Transform:
@@ -6507,7 +6509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad30e78ea1c3ed144b5d4e2d67c4a56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EmpurrarArmario
-  distanciaPegar: 3.5
+  distanciaPegar: 2.5
   forcaArrastar: 10
   cameraJogador: {fileID: 491390486}
   posicaoSegurar: {fileID: 494235086}
@@ -6536,7 +6538,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 114
   m_CollisionDetection: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
