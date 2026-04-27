@@ -145,7 +145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 592455897390982803, guid: 509461294c46fb541b7e47e0d178c51e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 592455897390982803, guid: 509461294c46fb541b7e47e0d178c51e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -524,7 +524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 592455897390982803, guid: 509461294c46fb541b7e47e0d178c51e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 592455897390982803, guid: 509461294c46fb541b7e47e0d178c51e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -706,8 +706,8 @@ Transform:
   m_GameObject: {fileID: 299215770}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1.57, y: 5.77, z: 20}
-  m_LocalScale: {x: 0.8597315, y: 2, z: 0.5}
+  m_LocalPosition: {x: 1.57, y: 6.9437, z: 20}
+  m_LocalScale: {x: 0.8597315, y: 2, z: 0.26525}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1632551353}
@@ -1602,6 +1602,11 @@ MonoBehaviour:
   pontoParaSegurar: {fileID: 494235086}
   textoAviso: {fileID: 0}
   forcaSeguir: 20
+--- !u!20 &491390486 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 9005220659476430821, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
+  m_PrefabInstance: {fileID: 491390482}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &494235085
 GameObject:
   m_ObjectHideFlags: 0
@@ -2464,7 +2469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b090a4032f0b514dbf0cf33ade3f570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FadeTransition
-  proximaCena: JLevel 3
+  proximaCena: JLevel 4
   telaPreta: {fileID: 405653898}
   velocidadeFade: 1.5
 --- !u!65 &1078202690
@@ -2895,6 +2900,39 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 952af9fb8b628154babe82649fbc7717, type: 3}
   m_PrefabInstance: {fileID: 1224074749}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1324964373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1324964374}
+  m_Layer: 0
+  m_Name: Armarios
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1324964374
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324964373}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.42646, y: 0, z: 13.87577}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6380702786354959397}
+  - {fileID: 4945008073181604748}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1327323195
 GameObject:
   m_ObjectHideFlags: 0
@@ -5387,9 +5425,11 @@ GameObject:
   - component: {fileID: 2772016145671849178}
   - component: {fileID: 9111546671335811970}
   - component: {fileID: 9111546671335811971}
+  - component: {fileID: 9111546671335811973}
+  - component: {fileID: 9111546671335811972}
   m_Layer: 0
   m_Name: Armario2
-  m_TagString: Untagged
+  m_TagString: Armario
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5892,11 +5932,11 @@ Transform:
   m_GameObject: {fileID: 1047887289457149877}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071067, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: -0.42646, y: 0, z: -3.8757696}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1324964374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &5297064921171222485
 Transform:
@@ -6064,9 +6104,11 @@ GameObject:
   - component: {fileID: 8593274420050135533}
   - component: {fileID: 1827020489761773503}
   - component: {fileID: 8593274420050135534}
+  - component: {fileID: 8593274420050135536}
+  - component: {fileID: 8593274420050135535}
   m_Layer: 0
   m_Name: Armario1
-  m_TagString: Untagged
+  m_TagString: Armario
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6080,11 +6122,11 @@ Transform:
   m_GameObject: {fileID: 6228167935355352528}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071067, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: -0.42646, y: 0, z: -3.8757696}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1324964374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &6502982001392635451
 MeshRenderer:
@@ -6305,6 +6347,49 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 0.79999983, z: 1.9999998}
   m_Center: {x: -3, y: -1.4999998, z: 0.9999999}
+--- !u!114 &8593274420050135535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6228167935355352528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad30e78ea1c3ed144b5d4e2d67c4a56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EmpurrarArmario
+  distanciaPegar: 3.5
+  forcaArrastar: 10
+  cameraJogador: {fileID: 491390486}
+  posicaoSegurar: {fileID: 494235086}
+--- !u!54 &8593274420050135536
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6228167935355352528}
+  serializedVersion: 5
+  m_Mass: 50
+  m_LinearDamping: 100
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!4 &8980608036888854240
 Transform:
   m_ObjectHideFlags: 0
@@ -6410,6 +6495,49 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8000002, y: 1.9999998, z: 1.9999998}
   m_Center: {x: -1.5, y: 0, z: 0.9999999}
+--- !u!114 &9111546671335811972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047887289457149877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad30e78ea1c3ed144b5d4e2d67c4a56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EmpurrarArmario
+  distanciaPegar: 3.5
+  forcaArrastar: 10
+  cameraJogador: {fileID: 491390486}
+  posicaoSegurar: {fileID: 494235086}
+--- !u!54 &9111546671335811973
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047887289457149877}
+  serializedVersion: 5
+  m_Mass: 50
+  m_LinearDamping: 100
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -6433,8 +6561,7 @@ SceneRoots:
   - {fileID: 1560326440}
   - {fileID: 2003571069}
   - {fileID: 905723177}
-  - {fileID: 6380702786354959397}
-  - {fileID: 4945008073181604748}
+  - {fileID: 1324964374}
   - {fileID: 5297064921171222485}
   - {fileID: 3860486957019520353}
   - {fileID: 859014468586302340}

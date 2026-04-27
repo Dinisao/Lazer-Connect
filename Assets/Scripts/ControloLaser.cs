@@ -60,6 +60,10 @@ public class ControloLaser : MonoBehaviour
         Vector3 posicaoAtual = pontoDisparo.position;
         Vector3 direcaoAtual = pontoDisparo.forward;
 
+        // MAGIA 1: Força o laser a nascer perfeitamente plano, ignorando inclinações do emissor
+        direcaoAtual.y = 0;
+        direcaoAtual.Normalize(); // Normalize garante que a velocidade/tamanho do vetor não se perde ao tirar o Y
+
         for (int i = 0; i < maxReflexoes; i++)
         {
             RaycastHit hit;
@@ -76,6 +80,11 @@ public class ControloLaser : MonoBehaviour
                 if (ehEspelho)
                 {
                     direcaoAtual = Vector3.Reflect(direcaoAtual, hit.normal);
+
+                    // MAGIA 2: Força o laser a continuar plano depois de bater num espelho torto
+                    direcaoAtual.y = 0;
+                    direcaoAtual.Normalize();
+
                     posicaoAtual = hit.point + (direcaoAtual * 0.01f);
                 }
                 else if (hit.collider.CompareTag("Receiver"))

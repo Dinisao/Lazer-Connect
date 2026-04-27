@@ -11,6 +11,7 @@ TagManager:
   - Wall
   - FixedMirror
   - Caixa
+  - Armario
   layers:
   - Default
   - TransparentFX
