@@ -15,7 +15,10 @@ public class PiscarAcordar : MonoBehaviour
 
     [Header("Ajustes de Velocidade")]
     public float multiplicadorVelocidade = 1.0f;
-    public float tempoTotalDesfoque = 4.0f;
+    public float tempoTotalDesfoque = 7.0f;
+
+    [Tooltip("Espera estes segundos antes de começar a focar a visão!")]
+    public float atrasoParaFocar = 3.0f; // <-- A TUA NOVA VARIÁVEL AQUI
 
     private GameObject player;
     private Vector3 posicaoFixa;
@@ -89,14 +92,12 @@ public class PiscarAcordar : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         // --- PISCADELA 1: Humana e rápida ---
-        // Abre um bocadinho (0.15s) e fecha logo (0.1s)
         yield return StartCoroutine(MoverPalpebras(0f, 0.3f, 0.15f / multiplicadorVelocidade));
         yield return StartCoroutine(MoverPalpebras(0.3f, 0f, 0.1f / multiplicadorVelocidade));
 
         yield return new WaitForSeconds(0.4f);
 
         // --- PISCADELA 2: Vacila mas não desiste ---
-        // Abre até mais de meio, quase fecha, e volta a abrir
         yield return StartCoroutine(MoverPalpebras(0f, 0.6f, 0.15f / multiplicadorVelocidade));
         yield return StartCoroutine(MoverPalpebras(0.6f, 0.2f, 0.1f / multiplicadorVelocidade));
         yield return StartCoroutine(MoverPalpebras(0.2f, 0.7f, 0.15f / multiplicadorVelocidade));
@@ -105,7 +106,6 @@ public class PiscarAcordar : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         // --- ABERTURA FINAL: Rápida mas suave no fim ---
-        // Demora apenas meio segundo (0.6s) a abrir de vez. Um piscar de olhos normal!
         yield return StartCoroutine(MoverPalpebras(0f, 1.0f, 0.6f / multiplicadorVelocidade, true));
 
         estaParalisado = false;
@@ -131,12 +131,10 @@ public class PiscarAcordar : MonoBehaviour
             float t;
             if (abrirDeVez)
             {
-                // Ease-Out: Arranca rápido (como um músculo a puxar) e trava suavemente no fim
                 t = Mathf.Sin(progresso * Mathf.PI * 0.5f);
             }
             else
             {
-                // SmoothStep: Curva orgânica humana para piscadelas normais (acelera e desacelera)
                 t = Mathf.SmoothStep(0f, 1f, progresso);
             }
 
@@ -148,6 +146,11 @@ public class PiscarAcordar : MonoBehaviour
 
     IEnumerator TirarDesfoqueDaLente()
     {
+        // --- O TRUQUE DE MESTRE AQUI ---
+        // O código pausa aqui e obriga a câmara a ficar míope até as piscadelas acabarem
+        yield return new WaitForSeconds(atrasoParaFocar);
+
+        // Depois do tempo passar, a visão foca lentamente
         float tempo = 0;
         while (tempo < tempoTotalDesfoque)
         {
