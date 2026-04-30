@@ -67,6 +67,8 @@ public class InteracaoJogador : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, out hit, distanciaInteracao))
         {
             Rigidbody rb = hit.collider.GetComponentInParent<Rigidbody>();
+
+            // Aceita se a Tag estiver no próprio colisor (HitboxVidro) ou no Pai
             bool ehMirror = hit.collider.CompareTag("Mirror") ||
                             (hit.collider.transform.parent != null && hit.collider.transform.parent.CompareTag("Mirror"));
 
@@ -75,7 +77,7 @@ public class InteracaoJogador : MonoBehaviour
                 rbSegurado = rb;
                 objetoSegurado = rb.gameObject;
 
-                // ANTI-VOO: Desativa colliders enquanto segura
+                // ANTI-VOO: Desativa a Hitbox e qualquer outro collider enquanto segura
                 Collider[] colls = objetoSegurado.GetComponentsInChildren<Collider>();
                 foreach (Collider c in colls) c.enabled = false;
 
@@ -143,7 +145,7 @@ public class InteracaoJogador : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
-        // Reativa colliders após colar
+        // Reativa hitboxes após colar para o laser bater
         Collider[] colls = obj.GetComponentsInChildren<Collider>();
         foreach (Collider c in colls) c.enabled = true;
     }
@@ -181,8 +183,16 @@ public class InteracaoJogador : MonoBehaviour
     {
         if (textoAviso == null) return;
         RaycastHit hit;
-        bool mirando = Physics.Raycast(transform.position, transform.forward, out hit, distanciaInteracao) &&
-                       (hit.collider.CompareTag("Mirror") || hit.collider.CompareTag("Button"));
-        textoAviso.SetActive(mirando);
+
+        // Agora também reage quer estejas a olhar para a Hitbox ou para o corpo principal
+        bool olhandoParaEspelho = false;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, distanciaInteracao))
+        {
+            olhandoParaEspelho = hit.collider.CompareTag("Mirror") ||
+                                 (hit.collider.transform.parent != null && hit.collider.transform.parent.CompareTag("Mirror")) ||
+                                 hit.collider.CompareTag("Button");
+        }
+
+        textoAviso.SetActive(olhandoParaEspelho);
     }
 }

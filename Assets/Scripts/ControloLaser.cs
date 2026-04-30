@@ -89,7 +89,9 @@ public class ControloLaser : MonoBehaviour
                         direcaoAtual.Normalize();
                     }
 
-                    posicaoAtual = hit.point + (direcaoAtual * 0.01f);
+                    // A CORREÇÃO: Empurra o laser ligeiramente para FORA do vidro 
+                    // usando o hit.normal, garantindo que não fica preso dentro do Box Collider!
+                    posicaoAtual = hit.point + (hit.normal * 0.05f);
                 }
                 else if (hit.collider.CompareTag("Receiver"))
                 {
