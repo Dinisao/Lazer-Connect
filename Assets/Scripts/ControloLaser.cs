@@ -56,7 +56,9 @@ public class ControloLaser : MonoBehaviour
         pontos.Add(pontoDisparo.position);
 
         Vector3 posicaoAtual = pontoDisparo.position;
-        Vector3 direcaoAtual = pontoDisparo.forward;
+
+        // A TUA ALTERAÇÃO AQUI: Agora sai na direção do -X (contrário da seta vermelha)
+        Vector3 direcaoAtual = -pontoDisparo.right;
 
         // MAGIA INTELIGENTE: Se a inclinação inicial for um erro minúsculo, força a 0.
         // Mas se for uma inclinação a sério (espelho virado para o chão), deixa passar!
