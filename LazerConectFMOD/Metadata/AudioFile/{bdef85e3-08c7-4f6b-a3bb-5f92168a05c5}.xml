@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{bdef85e3-08c7-4f6b-a3bb-5f92168a05c5}">
+		<property name="assetPath">
+			<value>ytmp3free.cc_portal-2-ambience-01-containment-youtubemp3free.org.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1888.3199999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a12ccbd1-102c-45c2-85c4-b0f49b430b08}</destination>
+		</relationship>
+	</object>
+</objects>

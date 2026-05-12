@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{beaafe91-6112-431b-81ce-8d86a3831682}">
+		<property name="assetPath">
+			<value>ytmp3free.cc_ceiling-fan-hq-sound-effects-youtubemp3free.org.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>45.863999999999997</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a12ccbd1-102c-45c2-85c4-b0f49b430b08}</destination>
+		</relationship>
+	</object>
+</objects>
