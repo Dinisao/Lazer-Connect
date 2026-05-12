@@ -12,20 +12,27 @@ public class ControloLaser : MonoBehaviour
     public float distanciaMaxima = 100f;
     public LayerMask camadasParaOcultar;
 
+    [Tooltip("Distância da ponta do emissor onde o laser começa")]
+    public float offsetSaidaLaser = 0.2f;
+
+    [Tooltip("Espessura do laser")]
+    public float larguraLaser = 0.2f;
+
     [Header("Estado")]
     public bool laserAtivo = false;
 
     [Header("Visual (Fix do Rosa)")]
     public Material materialDoLaser;
 
-    // NOVO: Tolerância para alinhar o laser automaticamente
     private float limiteAlinhamento = 0.05f;
 
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.startWidth = 0.05f;
-        lineRenderer.endWidth = 0.05f;
+
+        // Define a largura inicial baseada na variável pública
+        lineRenderer.startWidth = larguraLaser;
+        lineRenderer.endWidth = larguraLaser;
 
         if (materialDoLaser == null && lineRenderer.sharedMaterial != null)
         {
@@ -42,6 +49,10 @@ public class ControloLaser : MonoBehaviour
                 lineRenderer.material = materialDoLaser;
             }
 
+            // Garante que a largura se mantém atualizada caso alteres no Inspector em Runtime
+            lineRenderer.startWidth = larguraLaser;
+            lineRenderer.endWidth = larguraLaser;
+
             DesenharLaser();
         }
         else
@@ -53,15 +64,16 @@ public class ControloLaser : MonoBehaviour
     void DesenharLaser()
     {
         List<Vector3> pontos = new List<Vector3>();
-        pontos.Add(pontoDisparo.position);
 
-        Vector3 posicaoAtual = pontoDisparo.position;
-
-        // A TUA ALTERAÇÃO AQUI: Agora sai na direção do -X (contrário da seta vermelha)
+        // 1. Calculamos a direção (negativo do eixo X local do ponto de disparo)
         Vector3 direcaoAtual = -pontoDisparo.right;
 
-        // MAGIA INTELIGENTE: Se a inclinação inicial for um erro minúsculo, força a 0.
-        // Mas se for uma inclinação a sério (espelho virado para o chão), deixa passar!
+        // 2. Aplicamos o Offset para o laser começar mais à frente da ponta
+        Vector3 posicaoSaidaCorrigida = pontoDisparo.position + (direcaoAtual * offsetSaidaLaser);
+
+        pontos.Add(posicaoSaidaCorrigida);
+        Vector3 posicaoAtual = posicaoSaidaCorrigida;
+
         if (Mathf.Abs(direcaoAtual.y) < limiteAlinhamento)
         {
             direcaoAtual.y = 0;
@@ -84,19 +96,18 @@ public class ControloLaser : MonoBehaviour
                 {
                     direcaoAtual = Vector3.Reflect(direcaoAtual, hit.normal);
 
-                    // MAGIA INTELIGENTE APÓS REFLETIR: Corrige ressaltos com erros milimétricos.
                     if (Mathf.Abs(direcaoAtual.y) < limiteAlinhamento)
                     {
                         direcaoAtual.y = 0;
                         direcaoAtual.Normalize();
                     }
 
-                    // A CORREÇÃO: Empurra o laser ligeiramente para FORA do vidro 
-                    // usando o hit.normal, garantindo que não fica preso dentro do Box Collider!
+                    // Empurra o início da reflexão para fora do colisor para evitar auto-colisão
                     posicaoAtual = hit.point + (hit.normal * 0.05f);
                 }
                 else if (hit.collider.CompareTag("Receiver"))
                 {
+                    // Tenta encontrar a porta e mantê-la aberta
                     PortaEnergetica porta = Object.FindFirstObjectByType<PortaEnergetica>();
                     if (porta != null) porta.ManterAberta();
                     break;
@@ -105,6 +116,7 @@ public class ControloLaser : MonoBehaviour
             }
             else
             {
+                // Se não bater em nada, estende o laser até à distância máxima
                 pontos.Add(posicaoAtual + (direcaoAtual * distanciaMaxima));
                 break;
             }

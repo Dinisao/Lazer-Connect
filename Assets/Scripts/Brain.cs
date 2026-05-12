@@ -32,6 +32,7 @@ public class InteracaoFinal : MonoBehaviour
 
     private Vector3 escalaOriginal;
 
+    // Variáveis específicas para o armário
     private Vector3 distanciaInicialArmario;
     private Vector3 eixoMovimentoArmario;
 
@@ -52,6 +53,7 @@ public class InteracaoFinal : MonoBehaviour
     {
         if (objetoNaMao == null || rbNaMao == null) return;
 
+        // Movimento suave do espelho na mão
         if (tipoAtual == Tipo.Espelho)
         {
             Vector3 posAlvo = pontoSegurar.position +
@@ -64,6 +66,7 @@ public class InteracaoFinal : MonoBehaviour
             Quaternion rotAlvo = pontoSegurar.rotation * Quaternion.Euler(0, 180, 0);
             rbNaMao.MoveRotation(Quaternion.Slerp(rbNaMao.rotation, rotAlvo, Time.fixedDeltaTime * forcaSeguirMirror));
         }
+        // Movimento restrito do armário
         else if (tipoAtual == Tipo.Armario)
         {
             Vector3 posicaoAlvo = pontoSegurar.position + distanciaInicialArmario;
@@ -173,34 +176,34 @@ public class InteracaoFinal : MonoBehaviour
         if (Mathf.Abs(normal.y) < 0.5f) snapPos.y = Round(snapPos.y, tamanhoGrelha, offsetGrelha.y);
         if (Mathf.Abs(normal.z) < 0.5f) snapPos.z = Round(snapPos.z, tamanhoGrelha, offsetGrelha.z);
 
-        objetoNaMao.transform.position = snapPos + (normal * offsetColagemMirror);
+        Vector3 posFinal = snapPos + (normal * offsetColagemMirror);
+        Quaternion rotFinal;
 
         if (Mathf.Abs(normal.y) > 0.8f)
         {
-            Vector3 direcaoSnap;
-            if (Mathf.Abs(transform.forward.x) > Mathf.Abs(transform.forward.z))
-                direcaoSnap = new Vector3(Mathf.Sign(transform.forward.x), 0, 0);
-            else
-                direcaoSnap = new Vector3(0, 0, Mathf.Sign(transform.forward.z));
-
-            objetoNaMao.transform.rotation = Quaternion.LookRotation(normal, direcaoSnap);
+            Vector3 direcaoSnap = Mathf.Abs(transform.forward.x) > Mathf.Abs(transform.forward.z) ?
+                new Vector3(Mathf.Sign(transform.forward.x), 0, 0) : new Vector3(0, 0, Mathf.Sign(transform.forward.z));
+            rotFinal = Quaternion.LookRotation(normal, direcaoSnap);
         }
         else
         {
-            objetoNaMao.transform.rotation = Quaternion.LookRotation(normal, Vector3.up);
+            rotFinal = Quaternion.LookRotation(normal, Vector3.up);
         }
 
-        // --- SOLUÇÃO DO AVISO ---
-        // Primeiro resetamos as velocidades enquanto ele NÃO é kinematic
-        rbNaMao.isKinematic = false;
-        rbNaMao.linearVelocity = Vector3.zero;
-        rbNaMao.angularVelocity = Vector3.zero;
+        // --- SISTEMA DE BLOQUEIO MULTI-FRAME (Resolve o flash do Nível 3) ---
+        for (int i = 0; i < 3; i++)
+        {
+            rbNaMao.isKinematic = false; // Permite resetar velocidade sem erro
+            rbNaMao.linearVelocity = Vector3.zero;
+            rbNaMao.angularVelocity = Vector3.zero;
+            rbNaMao.isKinematic = true;
+            rbNaMao.useGravity = false;
 
-        // Agora sim, bloqueamos o objeto no sítio
-        rbNaMao.isKinematic = true;
-        rbNaMao.useGravity = false;
+            objetoNaMao.transform.position = posFinal;
+            objetoNaMao.transform.rotation = rotFinal;
 
-        yield return new WaitForFixedUpdate();
+            yield return new WaitForEndOfFrame();
+        }
 
         foreach (var c in objetoNaMao.GetComponentsInChildren<Collider>()) c.enabled = true;
 

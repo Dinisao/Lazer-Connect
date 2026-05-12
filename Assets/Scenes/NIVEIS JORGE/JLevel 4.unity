@@ -1539,9 +1539,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 538701197}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.24190278, y: -0.66444194, z: -0.66444194, w: 0.24190278}
-  m_LocalPosition: {x: -2.09, y: -10, z: -3.89}
-  m_LocalScale: {x: 399.99994, y: 400.00015, z: 400.00006}
+  m_LocalRotation: {x: -0.2419028, y: -0.66444194, z: -0.66444194, w: 0.2419028}
+  m_LocalPosition: {x: -1.0450002, y: -5, z: -1.9450005}
+  m_LocalScale: {x: 199.99998, y: 200.00014, z: 200.00008}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1446835583}
@@ -2010,7 +2010,7 @@ MonoBehaviour:
   distanciaInteracao: 3
   pontoSegurar: {fileID: 2098607822}
   textoAviso: {fileID: 0}
-  distanciaColagem: 3
+  distanciaColagem: 3.5
   offsetColagemMirror: 1.3
   offsetMaoMirror: {x: 0, y: -1, z: 0}
   forcaSeguirMirror: 25
@@ -4228,15 +4228,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6215194148377167468, guid: 55793e7efc92a9f48b7092b2e23d336c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6215194148377167468, guid: 55793e7efc92a9f48b7092b2e23d336c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6215194148377167468, guid: 55793e7efc92a9f48b7092b2e23d336c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6215194148377167468, guid: 55793e7efc92a9f48b7092b2e23d336c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4280,7 +4280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6215194148377167468, guid: 55793e7efc92a9f48b7092b2e23d336c, type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4319,11 +4319,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControloLaser
   pontoDisparo: {fileID: 1446835583}
-  maxReflexoes: 5
+  maxReflexoes: 20
   distanciaMaxima: 100
   camadasParaOcultar:
     serializedVersion: 2
     m_Bits: 64
+  offsetSaidaLaser: 0.7
+  larguraLaser: 0.1
   laserAtivo: 0
   materialDoLaser: {fileID: 0}
 --- !u!120 &1446835585
