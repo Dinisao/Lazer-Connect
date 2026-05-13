@@ -717,7 +717,7 @@ MonoBehaviour:
   volumeDesfoque: {fileID: 1961666448}
   multiplicadorVelocidade: 0.2
   tempoTotalDesfoque: 10
-  atrasoParaFocar: 3
+  atrasoParaFocar: 12
 --- !u!4 &295316822
 Transform:
   m_ObjectHideFlags: 0
