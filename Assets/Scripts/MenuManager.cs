@@ -16,22 +16,25 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-        // Garante que o jogo começa no painel certo
+        // --- ESTAS DUAS LINHAS RESOLVEM O PROBLEMA ---
+        Cursor.lockState = CursorLockMode.None; // Liberta o rato para se mover
+        Cursor.visible = true;                  // Torna o rato visível outra vez
+                                                // ----------------------------------------------
+
+        // Daqui para baixo continua o teu código original...
         MostrarPainelPrincipal();
 
-        // 1. Verifica o progresso guardado
         nivelMaximoAlcancado = PlayerPrefs.GetInt("NivelDesbloqueado", 0);
 
-        // 2. Tranca ou destranca os botões
         for (int i = 0; i < botoesDeNivel.Length; i++)
         {
             if (i > nivelMaximoAlcancado)
             {
-                botoesDeNivel[i].interactable = false; // Bloqueado
+                botoesDeNivel[i].interactable = false;
             }
             else
             {
-                botoesDeNivel[i].interactable = true; // Desbloqueado
+                botoesDeNivel[i].interactable = true;
             }
         }
     }
@@ -69,5 +72,13 @@ public class MenuManager : MonoBehaviour
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    // --- FUNÇÃO DE SAIR ---
+
+    public void SairDoJogo()
+    {
+        Debug.Log("O jogador saiu do jogo!");
+        Application.Quit();
     }
 }

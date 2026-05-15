@@ -39,6 +39,7 @@ public class InteracaoFinal : MonoBehaviour
     void Update()
     {
         if (objetoNaMao == null) VerificarMira();
+        else ChequearDistanciaLimite(); // Mantivemos apenas esta adição necessária
 
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
@@ -66,7 +67,7 @@ public class InteracaoFinal : MonoBehaviour
             Quaternion rotAlvo = pontoSegurar.rotation * Quaternion.Euler(0, 180, 0);
             rbNaMao.MoveRotation(Quaternion.Slerp(rbNaMao.rotation, rotAlvo, Time.fixedDeltaTime * forcaSeguirMirror));
         }
-        // Movimento restrito do armário
+        // Movimento restrito do armário (O teu original puro)
         else if (tipoAtual == Tipo.Armario)
         {
             Vector3 posicaoAlvo = pontoSegurar.position + distanciaInicialArmario;
@@ -75,6 +76,19 @@ public class InteracaoFinal : MonoBehaviour
 
             Vector3 direcaoRestrita = Vector3.Project(direcaoLivre, eixoMovimentoArmario);
             rbNaMao.linearVelocity = direcaoRestrita * forcaArrastarArmario;
+        }
+    }
+
+    void ChequearDistanciaLimite()
+    {
+        if (objetoNaMao == null || rbNaMao == null) return;
+
+        float distanciaAtual = Vector3.Distance(pontoSegurar.position, rbNaMao.position);
+
+        // Se o jogador se afastar mais do que a distância de interação (+ uma margem pequena de erro)
+        if (distanciaAtual > distanciaInteracao + 1.5f)
+        {
+            LargarOuColar();
         }
     }
 
@@ -190,10 +204,9 @@ public class InteracaoFinal : MonoBehaviour
             rotFinal = Quaternion.LookRotation(normal, Vector3.up);
         }
 
-        // --- SISTEMA DE BLOQUEIO MULTI-FRAME (Resolve o flash do Nível 3) ---
         for (int i = 0; i < 3; i++)
         {
-            rbNaMao.isKinematic = false; // Permite resetar velocidade sem erro
+            rbNaMao.isKinematic = false;
             rbNaMao.linearVelocity = Vector3.zero;
             rbNaMao.angularVelocity = Vector3.zero;
             rbNaMao.isKinematic = true;
