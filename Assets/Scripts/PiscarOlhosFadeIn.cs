@@ -18,7 +18,7 @@ public class PiscarAcordar : MonoBehaviour
     public float tempoTotalDesfoque = 7.0f;
 
     [Tooltip("Espera estes segundos antes de começar a focar a visão!")]
-    public float atrasoParaFocar = 3.0f; // <-- A TUA NOVA VARIÁVEL AQUI
+    public float atrasoParaFocar = 3.0f;
 
     private GameObject player;
     private Vector3 posicaoFixa;
@@ -26,6 +26,10 @@ public class PiscarAcordar : MonoBehaviour
     private float alturaMaxima;
 
     private DepthOfField dof;
+
+    // Variáveis adicionadas para gerir a mira no início
+    private InteracaoFinal scriptInteracao;
+    private GameObject crosshairDoJogador;
 
     void Awake()
     {
@@ -42,6 +46,23 @@ public class PiscarAcordar : MonoBehaviour
         {
             ConfigurarAncoras();
             ForcarAbertura(0f);
+        }
+
+        // --- OCULTAR A MIRA NO RESPRAWN/INÍCIO ---
+        // Procura pelo script de interação na cena para aceder à mira e ao aviso
+        scriptInteracao = Object.FindFirstObjectByType<InteracaoFinal>();
+        if (scriptInteracao != null)
+        {
+            // Apaga o aviso de texto imediatamente
+            if (scriptInteracao.textoAviso != null)
+                scriptInteracao.textoAviso.SetActive(false);
+
+            // Apaga a mira e guarda a referência para a ligar mais tarde
+            if (scriptInteracao.objetoMira != null)
+            {
+                crosshairDoJogador = scriptInteracao.objetoMira;
+                crosshairDoJogador.SetActive(false);
+            }
         }
     }
 
@@ -92,12 +113,14 @@ public class PiscarAcordar : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         // --- PISCADELA 1: Humana e rápida ---
+        // Nota: O texto e a mira continuam invisíveis por trás do preto
         yield return StartCoroutine(MoverPalpebras(0f, 0.3f, 0.15f / multiplicadorVelocidade));
         yield return StartCoroutine(MoverPalpebras(0.3f, 0f, 0.1f / multiplicadorVelocidade));
 
         yield return new WaitForSeconds(0.4f);
 
         // --- PISCADELA 2: Vacila mas não desiste ---
+        // Vista do cenário embaçada, mas limpa de elementos de UI
         yield return StartCoroutine(MoverPalpebras(0f, 0.6f, 0.15f / multiplicadorVelocidade));
         yield return StartCoroutine(MoverPalpebras(0.6f, 0.2f, 0.1f / multiplicadorVelocidade));
         yield return StartCoroutine(MoverPalpebras(0.2f, 0.7f, 0.15f / multiplicadorVelocidade));
@@ -111,6 +134,13 @@ public class PiscarAcordar : MonoBehaviour
         estaParalisado = false;
         palpebraCima.gameObject.SetActive(false);
         palpebraBaixo.gameObject.SetActive(false);
+
+        // --- ATIVAÇÃO DA MIRA NO MOMENTO CERTO ---
+        // Os olhos estão abertos, a UI da mira pode finalmente aparecer de forma limpa
+        if (crosshairDoJogador != null)
+        {
+            crosshairDoJogador.SetActive(true);
+        }
     }
 
     void ForcarAbertura(float percentagemAberto)
@@ -146,11 +176,8 @@ public class PiscarAcordar : MonoBehaviour
 
     IEnumerator TirarDesfoqueDaLente()
     {
-        // --- O TRUQUE DE MESTRE AQUI ---
-        // O código pausa aqui e obriga a câmara a ficar míope até as piscadelas acabarem
         yield return new WaitForSeconds(atrasoParaFocar);
 
-        // Depois do tempo passar, a visão foca lentamente
         float tempo = 0;
         while (tempo < tempoTotalDesfoque)
         {

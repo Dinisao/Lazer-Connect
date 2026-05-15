@@ -8,6 +8,7 @@ public class InteracaoFinal : MonoBehaviour
     public float distanciaInteracao = 5f;
     public Transform pontoSegurar;
     public GameObject textoAviso;
+    public GameObject objetoMira; // Drag & Drop da tua Mira do Canvas para aqui
 
     [Header("Ajuste do ESPELHO")]
     public float distanciaColagem = 4f;
@@ -39,7 +40,7 @@ public class InteracaoFinal : MonoBehaviour
     void Update()
     {
         if (objetoNaMao == null) VerificarMira();
-        else ChequearDistanciaLimite(); // Mantivemos apenas esta adição necessária
+        else ChequearDistanciaLimite();
 
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
@@ -67,7 +68,7 @@ public class InteracaoFinal : MonoBehaviour
             Quaternion rotAlvo = pontoSegurar.rotation * Quaternion.Euler(0, 180, 0);
             rbNaMao.MoveRotation(Quaternion.Slerp(rbNaMao.rotation, rotAlvo, Time.fixedDeltaTime * forcaSeguirMirror));
         }
-        // Movimento restrito do armário (O teu original puro)
+        // Movimento restrito do armário
         else if (tipoAtual == Tipo.Armario)
         {
             Vector3 posicaoAlvo = pontoSegurar.position + distanciaInicialArmario;
@@ -85,7 +86,6 @@ public class InteracaoFinal : MonoBehaviour
 
         float distanciaAtual = Vector3.Distance(pontoSegurar.position, rbNaMao.position);
 
-        // Se o jogador se afastar mais do que a distância de interação (+ uma margem pequena de erro)
         if (distanciaAtual > distanciaInteracao + 1.5f)
         {
             LargarOuColar();
@@ -113,10 +113,12 @@ public class InteracaoFinal : MonoBehaviour
             if (hit.collider.CompareTag("Mirror"))
             {
                 ConfigurarPegar(rb, Tipo.Espelho);
+                AtualizarEstadoMira(false); // Esconde a mira ao pegar no espelho
             }
             else if (hit.collider.CompareTag("Caixa"))
             {
                 ConfigurarPegar(rb, Tipo.Caixa);
+                AtualizarEstadoMira(false); // Esconde a mira ao pegar na caixa
 
                 objetoNaMao.transform.SetParent(pontoSegurar);
                 objetoNaMao.transform.localScale = escalaOriginal;
@@ -128,6 +130,7 @@ public class InteracaoFinal : MonoBehaviour
                 rbNaMao = rb;
                 objetoNaMao = rb.gameObject;
                 tipoAtual = Tipo.Armario;
+                AtualizarEstadoMira(true); // Mantém a mira visível para o armário
 
                 rbNaMao.linearDamping = 5f;
                 distanciaInicialArmario = rbNaMao.position - pontoSegurar.position;
@@ -168,16 +171,19 @@ public class InteracaoFinal : MonoBehaviour
                 }
             }
             SoltarNoChao();
+            AtualizarEstadoMira(true); // Volta a mostrar a mira ao largar
         }
         else if (tipoAtual == Tipo.Armario)
         {
             rbNaMao.linearDamping = 100f;
             rbNaMao.linearVelocity = Vector3.zero;
             objetoNaMao = null; rbNaMao = null; tipoAtual = Tipo.Nada;
+            AtualizarEstadoMira(true); // Garante que a mira está ligada
         }
         else
         {
             SoltarNoChao();
+            AtualizarEstadoMira(true); // Volta a mostrar a mira ao largar a caixa
         }
     }
 
@@ -221,6 +227,7 @@ public class InteracaoFinal : MonoBehaviour
         foreach (var c in objetoNaMao.GetComponentsInChildren<Collider>()) c.enabled = true;
 
         objetoNaMao = null; rbNaMao = null; tipoAtual = Tipo.Nada;
+        AtualizarEstadoMira(true); // Mostra a mira depois do snap do espelho terminar
     }
 
     void SoltarNoChao()
@@ -278,5 +285,14 @@ public class InteracaoFinal : MonoBehaviour
                  hit.collider.CompareTag("Armario");
         }
         textoAviso.SetActive(ok);
+    }
+
+    // Função auxiliar para ligar/desligar a mira de forma segura
+    void AtualizarEstadoMira(bool ligada)
+    {
+        if (objetoMira != null)
+        {
+            objetoMira.SetActive(ligada);
+        }
     }
 }
