@@ -3891,7 +3891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dc8c4b2c00551848b3635cf43a0fb8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimerNivel
-  tempoInicial: 60
+  tempoInicial: 120
   textoTimer: {fileID: 1879341437}
   fadeImage: {fileID: 254093765}
   forcaExplosao: 150
