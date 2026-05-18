@@ -4655,7 +4655,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortaEnergetica
   deslocamento: {x: 0, y: -5, z: 0}
-  velocidade: 2
+  velocidade: 5
+  eventoSomPorta:
+    Guid:
+      Data1: -1806808681
+      Data2: 1254606085
+      Data3: 1727502521
+      Data4: -1818137063
+    Path: event:/Porta
 --- !u!65 &1448318175
 BoxCollider:
   m_ObjectHideFlags: 0

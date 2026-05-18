@@ -8,7 +8,7 @@ public class InteracaoFinal : MonoBehaviour
     public float distanciaInteracao = 5f;
     public Transform pontoSegurar;
     public GameObject textoAviso;
-    public GameObject objetoMira; // Drag & Drop da tua Mira do Canvas para aqui
+    public GameObject objetoMira;
 
     [Header("Ajuste do ESPELHO")]
     public float distanciaColagem = 4f;
@@ -113,12 +113,12 @@ public class InteracaoFinal : MonoBehaviour
             if (hit.collider.CompareTag("Mirror"))
             {
                 ConfigurarPegar(rb, Tipo.Espelho);
-                AtualizarEstadoMira(false); // Esconde a mira ao pegar no espelho
+                AtualizarEstadoMira(false);
             }
             else if (hit.collider.CompareTag("Caixa"))
             {
                 ConfigurarPegar(rb, Tipo.Caixa);
-                AtualizarEstadoMira(false); // Esconde a mira ao pegar na caixa
+                AtualizarEstadoMira(false);
 
                 objetoNaMao.transform.SetParent(pontoSegurar);
                 objetoNaMao.transform.localScale = escalaOriginal;
@@ -130,7 +130,7 @@ public class InteracaoFinal : MonoBehaviour
                 rbNaMao = rb;
                 objetoNaMao = rb.gameObject;
                 tipoAtual = Tipo.Armario;
-                AtualizarEstadoMira(true); // Mantém a mira visível para o armário
+                AtualizarEstadoMira(true);
 
                 rbNaMao.linearDamping = 5f;
                 distanciaInicialArmario = rbNaMao.position - pontoSegurar.position;
@@ -166,29 +166,48 @@ public class InteracaoFinal : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Chao"))
                 {
-                    StartCoroutine(ColarParede(hit.point, hit.normal));
+                    // CORREÇÃO: Cache das variáveis antes de limpar o estado principal
+                    GameObject espelhoParaColar = objetoNaMao;
+                    Rigidbody rbParaColar = rbNaMao;
+
+                    // Desvincula imediatamente o objeto antes da Coroutine começar
+                    espelhoParaColar.transform.SetParent(null);
+
+                    objetoNaMao = null; rbNaMao = null; tipoAtual = Tipo.Nada;
+                    AtualizarEstadoMira(true);
+
+                    StartCoroutine(ColarParede(hit.point, hit.normal, espelhoParaColar, rbParaColar));
                     return;
                 }
             }
             SoltarNoChao();
-            AtualizarEstadoMira(true); // Volta a mostrar a mira ao largar
+            AtualizarEstadoMira(true);
         }
         else if (tipoAtual == Tipo.Armario)
         {
             rbNaMao.linearDamping = 100f;
             rbNaMao.linearVelocity = Vector3.zero;
             objetoNaMao = null; rbNaMao = null; tipoAtual = Tipo.Nada;
-            AtualizarEstadoMira(true); // Garante que a mira está ligada
+            AtualizarEstadoMira(true);
         }
         else
         {
             SoltarNoChao();
-            AtualizarEstadoMira(true); // Volta a mostrar a mira ao largar a caixa
+            AtualizarEstadoMira(true);
         }
     }
 
-    IEnumerator ColarParede(Vector3 ponto, Vector3 normal)
+    // CORREÇÃO: Passamos o objeto e o Rigidbody diretamente para garantir estabilidade multithread
+    IEnumerator ColarParede(Vector3 ponto, Vector3 normal, GameObject espelho, Rigidbody rb)
     {
+        if (espelho == null || rb == null) yield break;
+
+        // Tranca a física de forma absoluta no frame 1
+        rb.isKinematic = true;
+        rb.useGravity = false;
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
         Vector3 snapPos = ponto;
         float Round(float v, float t, float o) => t == 0 ? v : Mathf.Round((v - o) / t) * t + o;
 
@@ -210,24 +229,20 @@ public class InteracaoFinal : MonoBehaviour
             rotFinal = Quaternion.LookRotation(normal, Vector3.up);
         }
 
+        // Sistema multi-frame ultra agressivo para garantir que a transformação é injetada
         for (int i = 0; i < 3; i++)
         {
-            rbNaMao.isKinematic = false;
-            rbNaMao.linearVelocity = Vector3.zero;
-            rbNaMao.angularVelocity = Vector3.zero;
-            rbNaMao.isKinematic = true;
-            rbNaMao.useGravity = false;
+            espelho.transform.position = posFinal;
+            espelho.transform.rotation = rotFinal;
 
-            objetoNaMao.transform.position = posFinal;
-            objetoNaMao.transform.rotation = rotFinal;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
 
             yield return new WaitForEndOfFrame();
         }
 
-        foreach (var c in objetoNaMao.GetComponentsInChildren<Collider>()) c.enabled = true;
-
-        objetoNaMao = null; rbNaMao = null; tipoAtual = Tipo.Nada;
-        AtualizarEstadoMira(true); // Mostra a mira depois do snap do espelho terminar
+        // Reativa os colisores com segurança
+        foreach (var c in espelho.GetComponentsInChildren<Collider>()) c.enabled = true;
     }
 
     void SoltarNoChao()
@@ -236,6 +251,7 @@ public class InteracaoFinal : MonoBehaviour
 
         objetoNaMao.transform.SetParent(null);
         objetoNaMao.transform.localScale = escalaOriginal;
+        tipoAtual = Tipo.Nada;
 
         Vector3 origem = Camera.main.transform.position;
         Vector3 direcao = objetoNaMao.transform.position - origem;
@@ -249,7 +265,7 @@ public class InteracaoFinal : MonoBehaviour
         rbNaMao.useGravity = true;
         foreach (var c in objetoNaMao.GetComponentsInChildren<Collider>()) c.enabled = true;
 
-        objetoNaMao = null; rbNaMao = null; tipoAtual = Tipo.Nada;
+        objetoNaMao = null; rbNaMao = null;
     }
 
     void TentarRodar()
@@ -287,7 +303,6 @@ public class InteracaoFinal : MonoBehaviour
         textoAviso.SetActive(ok);
     }
 
-    // Função auxiliar para ligar/desligar a mira de forma segura
     void AtualizarEstadoMira(bool ligada)
     {
         if (objetoMira != null)
