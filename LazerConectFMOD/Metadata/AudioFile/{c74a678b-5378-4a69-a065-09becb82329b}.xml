@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{c74a678b-5378-4a69-a065-09becb82329b}">
+		<property name="assetPath">
+			<value>freesound_community-electronic-sound-of-a-magnetic-field-recoded-by-a-magnetic-field-captor-18909.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>349.68000000000001</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a12ccbd1-102c-45c2-85c4-b0f49b430b08}</destination>
+		</relationship>
+	</object>
+</objects>
