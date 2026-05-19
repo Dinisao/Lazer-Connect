@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{517b38fd-4f0e-4abe-9c77-f6864b5f5223}">
 		<property name="name">
-			<value>Acordar</value>
+			<value>Plr_Acordar</value>
 		</property>
 		<property name="outputFormat">
 			<value>0</value>
 		</property>
 		<relationship name="folder">
-			<destination>{96b0ff80-3dd9-4352-8655-9dd071b2113f}</destination>
+			<destination>{3a6dfca6-ba7c-40c2-94b8-d7cb9e849582}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{910434c1-6242-4c58-b547-8d937adec471}</destination>

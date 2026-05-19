@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{e4ed54af-92f1-48f2-8aa1-64fc65917a7c}">
 		<property name="name">
-			<value>BackgroundTimer</value>
+			<value>MusicaSala1</value>
 		</property>
 		<property name="outputFormat">
 			<value>5</value>
 		</property>
 		<relationship name="folder">
-			<destination>{96b0ff80-3dd9-4352-8655-9dd071b2113f}</destination>
+			<destination>{df17df3a-cc21-46c2-8b51-de752f6c6737}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{33e4187a-750b-46b5-9d4c-8c8f11221bc6}</destination>

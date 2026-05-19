@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{4f34d1eb-9baf-4242-b149-315e5139cefa}">
 		<property name="name">
-			<value>Salto</value>
+			<value>Plr_Salto</value>
 		</property>
 		<property name="outputFormat">
 			<value>0</value>
 		</property>
 		<relationship name="folder">
-			<destination>{96b0ff80-3dd9-4352-8655-9dd071b2113f}</destination>
+			<destination>{3a6dfca6-ba7c-40c2-94b8-d7cb9e849582}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{63e38dc9-9455-4be0-8ca3-f5a7b90ad12c}</destination>

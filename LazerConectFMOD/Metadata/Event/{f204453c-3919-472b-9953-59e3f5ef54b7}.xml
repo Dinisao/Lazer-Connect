@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{f204453c-3919-472b-9953-59e3f5ef54b7}">
 		<property name="name">
-			<value>AgarrarEspelhos</value>
+			<value>Plr_AgarrarEspelhos</value>
 		</property>
 		<property name="outputFormat">
 			<value>0</value>
 		</property>
 		<relationship name="folder">
-			<destination>{96b0ff80-3dd9-4352-8655-9dd071b2113f}</destination>
+			<destination>{3a6dfca6-ba7c-40c2-94b8-d7cb9e849582}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{9432aebd-d0f6-45e0-b872-25d2c46860bf}</destination>
