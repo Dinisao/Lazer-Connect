@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{016fa44f-cd83-4a71-ba73-6ef1ac8e8169}">
+		<property name="assetPath">
+			<value>floraphonic-casual-click-pop-ui-2-262119.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.35999999999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a12ccbd1-102c-45c2-85c4-b0f49b430b08}</destination>
+		</relationship>
+	</object>
+</objects>

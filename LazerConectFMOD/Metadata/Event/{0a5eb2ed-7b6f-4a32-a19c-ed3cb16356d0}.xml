@@ -5,7 +5,7 @@
 			<value>EncaixeNaGrelha</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{f172eaf2-2169-425b-8a9e-be51d15d14c1}</destination>
@@ -59,11 +59,18 @@
 	<object class="EventAutomatableProperties" id="{2d041a77-92f0-4237-bdcf-75c46c514b71}" />
 	<object class="MarkerTrack" id="{8967a4d1-3830-4ce0-8a2e-53baf802e640}" />
 	<object class="GroupTrack" id="{057119d2-14dc-48a0-8c6c-600a99f7baa1}">
+		<relationship name="modules">
+			<destination>{e9ce2c5a-73bf-42d2-89f5-2312172b51e4}</destination>
+		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{40b9f1f0-5251-4fab-8e4c-ebe1f5a73a46}</destination>
 		</relationship>
 	</object>
-	<object class="Timeline" id="{8a19ef75-b568-427d-aad0-b620ab945ea6}" />
+	<object class="Timeline" id="{8a19ef75-b568-427d-aad0-b620ab945ea6}">
+		<relationship name="modules">
+			<destination>{e9ce2c5a-73bf-42d2-89f5-2312172b51e4}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerMaster" id="{24bc4b93-ebbc-43c3-ad55-f5c371003c2e}">
 		<relationship name="effectChain">
 			<destination>{af2f246d-02ae-4f81-a16f-d1237afb0143}</destination>
@@ -81,6 +88,17 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{04dcfd3b-a853-44ef-b371-d5e7d6d12ebe}" />
+	<object class="SingleSound" id="{e9ce2c5a-73bf-42d2-89f5-2312172b51e4}">
+		<property name="length">
+			<value>0.25408163265306122</value>
+		</property>
+		<property name="volume">
+			<value>1.5</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{ffccab0e-e4d9-4d4c-aac6-9668941075ca}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerGroup" id="{40b9f1f0-5251-4fab-8e4c-ebe1f5a73a46}">
 		<property name="name">
 			<value>Audio 1</value>
