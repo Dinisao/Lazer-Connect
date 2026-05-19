@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{7d1dd922-cd15-4b92-b8c3-48c2d4a511db}">
 		<property name="assetPath">
-			<value>freesound_community-footsteps-on-tile-31653.mp3</value>
+			<value>PassosAzulejo.mp3</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>
