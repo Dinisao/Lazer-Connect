@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{c19ad7d7-7fea-46ed-b440-ba728f1c0900}">
 		<property name="name">
-			<value>RecetorRecebeLaser</value>
+			<value>RecetorCarregado</value>
 		</property>
 		<property name="outputFormat">
 			<value>0</value>
