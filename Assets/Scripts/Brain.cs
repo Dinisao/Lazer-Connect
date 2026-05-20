@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using FMODUnity; // IMPORTANTE: Adicionado para o Unity reconhecer o FMOD
 
 public class InteracaoFinal : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class InteracaoFinal : MonoBehaviour
     public Transform pontoSegurar;
     public GameObject textoAviso;
     public GameObject objetoMira;
+
+    [Header("Sons do Puzzle (FMOD)")]
+    // Campo criado para selecionares o áudio do encaixe no Inspector
+    public EventReference somColarEspelho;
 
     [Header("Ajuste do ESPELHO")]
     public float distanciaColagem = 4f;
@@ -227,6 +232,12 @@ public class InteracaoFinal : MonoBehaviour
         else
         {
             rotFinal = Quaternion.LookRotation(normal, Vector3.up);
+        }
+
+        // TOCA O SOM DO FMOD EXATAMENTE NO MOMENTO DO SNAP (Antes de congelar na parede)
+        if (!somColarEspelho.IsNull)
+        {
+            RuntimeManager.PlayOneShot(somColarEspelho, posFinal);
         }
 
         // Sistema multi-frame ultra agressivo para garantir que a transformação é injetada

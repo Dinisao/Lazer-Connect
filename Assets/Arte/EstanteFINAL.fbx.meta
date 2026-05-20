@@ -1,9 +1,29 @@
 fileFormatVersion: 2
-guid: 5f4c40bb716d6f1438efebb6644fc53a
+guid: c5f0c0923e2fba049b44afa0eef3248c
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rack
+    second: {fileID: 2100000, guid: b80f97bc8cd9a0a46aa021f8d4b099c4, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Albedo rack
+    second: {fileID: 2800000, guid: 698faf3ca7231c640adddfa7ed128b8f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Metall rack
+    second: {fileID: 2800000, guid: 167ae944befd904449250ecdf6a10f09, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Roughness rack
+    second: {fileID: 2800000, guid: 0b056cafecd43b44788d2948e0688929, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
