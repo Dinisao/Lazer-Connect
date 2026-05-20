@@ -116,6 +116,10 @@
 			<destination>{649e7b93-5bf2-4d6f-bc65-f009363be409}</destination>
 			<destination>{bb75ec07-3683-4196-ad84-3eb2c61c9c34}</destination>
 			<destination>{35dbe3ce-f921-44db-8211-a0b381f8b3c7}</destination>
+			<destination>{a0d772a4-bda1-475d-adbe-a31cf80233cf}</destination>
+			<destination>{3dec6b08-44f7-4fd9-8499-5a558b940063}</destination>
+			<destination>{010c8125-34b6-4472-a5e2-249b32146e00}</destination>
+			<destination>{2292bdee-60d5-4e2b-bec8-f6867d79ff88}</destination>
 		</relationship>
 	</object>
 	<object class="MultiSound" id="{a908a3a8-4abd-40e0-bd5c-981d06019376}">
@@ -204,14 +208,56 @@
 	<object class="SingleSound" id="{bb75ec07-3683-4196-ad84-3eb2c61c9c34}">
 		<relationship name="modulators">
 			<destination>{1242aeea-df21-48b8-a0b7-71c1d8bd4ce4}</destination>
+			<destination>{939e4521-85c9-4487-8be5-621527c63704}</destination>
+			<destination>{7f0fd86f-7e1d-40d6-9630-014cadc33e3d}</destination>
 		</relationship>
 		<relationship name="audioFile">
 			<destination>{f25b3299-3110-47d8-b313-7faa79dd472f}</destination>
 		</relationship>
 	</object>
 	<object class="SingleSound" id="{35dbe3ce-f921-44db-8211-a0b381f8b3c7}">
+		<relationship name="modulators">
+			<destination>{5a0088d2-228c-4838-bbf8-20c6554ff52a}</destination>
+			<destination>{4e2fd9e9-2e80-4e54-99cd-8e869110b53b}</destination>
+		</relationship>
 		<relationship name="audioFile">
 			<destination>{1d8764b5-53b4-431e-a031-be6dd2af3641}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{a0d772a4-bda1-475d-adbe-a31cf80233cf}">
+		<relationship name="modulators">
+			<destination>{919cf74c-9dc4-4d26-af99-6f3b35368c5c}</destination>
+			<destination>{3fc7ed80-6f8d-4253-9b51-f365b04536ce}</destination>
+		</relationship>
+		<relationship name="audioFile">
+			<destination>{540d2b51-0d91-4fbc-82c8-ec4aec9e35e0}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{3dec6b08-44f7-4fd9-8499-5a558b940063}">
+		<relationship name="modulators">
+			<destination>{efa75ffc-9208-4d8c-9f63-6d579bd811fc}</destination>
+			<destination>{57220523-4151-43bf-a1aa-b876e53ae7e4}</destination>
+		</relationship>
+		<relationship name="audioFile">
+			<destination>{2047af7d-49ae-47e1-95fe-fe4a1b5d3905}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{010c8125-34b6-4472-a5e2-249b32146e00}">
+		<relationship name="modulators">
+			<destination>{2a79b55a-2e84-4082-8f38-2dba5a25341b}</destination>
+			<destination>{304eff4a-a905-4093-8780-73868cdd8fc9}</destination>
+		</relationship>
+		<relationship name="audioFile">
+			<destination>{fa2a0d51-76b0-49e1-b663-f8af4df8f14c}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{2292bdee-60d5-4e2b-bec8-f6867d79ff88}">
+		<relationship name="modulators">
+			<destination>{1926802d-8035-4ae9-bc60-0d0893d7f5ec}</destination>
+			<destination>{727a7323-3d38-4f5a-84f1-6daeeef39ea1}</destination>
+		</relationship>
+		<relationship name="audioFile">
+			<destination>{0514dc25-2865-4bc5-bcd0-4f8e89ddd8d9}</destination>
 		</relationship>
 	</object>
 	<object class="RandomizerModulator" id="{4178c31b-bade-4955-90ad-dfe0eafd9233}">
@@ -323,6 +369,102 @@
 		</property>
 		<property name="amount">
 			<value>11.5</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{939e4521-85c9-4487-8be5-621527c63704}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>2</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{7f0fd86f-7e1d-40d6-9630-014cadc33e3d}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="amount">
+			<value>3.5</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{5a0088d2-228c-4838-bbf8-20c6554ff52a}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>2</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{4e2fd9e9-2e80-4e54-99cd-8e869110b53b}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="amount">
+			<value>3.5</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{919cf74c-9dc4-4d26-af99-6f3b35368c5c}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="amount">
+			<value>3.5</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{3fc7ed80-6f8d-4253-9b51-f365b04536ce}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>2</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{efa75ffc-9208-4d8c-9f63-6d579bd811fc}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>2</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{57220523-4151-43bf-a1aa-b876e53ae7e4}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="amount">
+			<value>3.5</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{2a79b55a-2e84-4082-8f38-2dba5a25341b}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="amount">
+			<value>3.5</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{304eff4a-a905-4093-8780-73868cdd8fc9}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>2</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{1926802d-8035-4ae9-bc60-0d0893d7f5ec}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="amount">
+			<value>3.5</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{727a7323-3d38-4f5a-84f1-6daeeef39ea1}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>1.97916663</value>
 		</property>
 	</object>
 	<object class="RandomizerModulator" id="{b0d4df5e-3e63-4203-8bad-b31df6760f2d}">
