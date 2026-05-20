@@ -26,6 +26,9 @@ public class PiscarAcordar : MonoBehaviour
     private float alturaMaxima;
 
     private DepthOfField dof;
+    private ChromaticAberration chromatic;
+    private LensDistortion distortion;
+    private Vignette vignette; // Adicionado para controlar o escurecimento das bordas
 
     // Variáveis adicionadas para gerir a mira no início
     private InteracaoFinal scriptInteracao;
@@ -49,15 +52,12 @@ public class PiscarAcordar : MonoBehaviour
         }
 
         // --- OCULTAR A MIRA NO RESPRAWN/INÍCIO ---
-        // Procura pelo script de interação na cena para aceder à mira e ao aviso
         scriptInteracao = Object.FindFirstObjectByType<InteracaoFinal>();
         if (scriptInteracao != null)
         {
-            // Apaga o aviso de texto imediatamente
             if (scriptInteracao.textoAviso != null)
                 scriptInteracao.textoAviso.SetActive(false);
 
-            // Apaga a mira e guarda a referência para a ligar mais tarde
             if (scriptInteracao.objetoMira != null)
             {
                 crosshairDoJogador = scriptInteracao.objetoMira;
@@ -73,20 +73,47 @@ public class PiscarAcordar : MonoBehaviour
             StartCoroutine(SequenciaDesorientada());
         }
 
-        if (volumeDesfoque != null && volumeDesfoque.profile.TryGet<DepthOfField>(out dof))
+        if (volumeDesfoque != null)
         {
-            dof.active = true;
-            dof.mode.overrideState = true;
-            dof.mode.value = DepthOfFieldMode.Bokeh;
+            // Configura o Desfoque de Lente
+            if (volumeDesfoque.profile.TryGet<DepthOfField>(out dof))
+            {
+                dof.active = true;
+                dof.mode.overrideState = true;
+                dof.mode.value = DepthOfFieldMode.Bokeh;
+                dof.focusDistance.overrideState = true;
+                dof.focusDistance.value = 0.1f;
+                dof.focalLength.overrideState = true;
+                dof.focalLength.value = 300f;
+                dof.aperture.overrideState = true;
+                dof.aperture.value = 1f;
+            }
 
-            dof.focusDistance.overrideState = true;
-            dof.focusDistance.value = 0.1f;
+            // Configura a Visão Dupla/Tontura de Cores
+            if (volumeDesfoque.profile.TryGet<ChromaticAberration>(out chromatic))
+            {
+                chromatic.active = true;
+                chromatic.intensity.overrideState = true;
+                chromatic.intensity.value = 1.0f;
+            }
 
-            dof.focalLength.overrideState = true;
-            dof.focalLength.value = 300f;
+            // Configura a Distorção de Lente
+            if (volumeDesfoque.profile.TryGet<LensDistortion>(out distortion))
+            {
+                distortion.active = true;
+                distortion.intensity.overrideState = true;
+                distortion.intensity.value = -12f;
+            }
 
-            dof.aperture.overrideState = true;
-            dof.aperture.value = 1f;
+            // NOVO: Configura as bordas pretas (Vignette) para começarem ativas no início
+            if (volumeDesfoque.profile.TryGet<Vignette>(out vignette))
+            {
+                vignette.active = true;
+                vignette.intensity.overrideState = true;
+                vignette.intensity.value = 0.45f; // Força inicial do escurecimento
+                vignette.smoothness.overrideState = true;
+                vignette.smoothness.value = 1.0f;
+            }
 
             StartCoroutine(TirarDesfoqueDaLente());
         }
@@ -112,15 +139,13 @@ public class PiscarAcordar : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
 
-        // --- PISCADELA 1: Humana e rápida ---
-        // Nota: O texto e a mira continuam invisíveis por trás do preto
+        // --- PISCADELA 1 ---
         yield return StartCoroutine(MoverPalpebras(0f, 0.3f, 0.15f / multiplicadorVelocidade));
         yield return StartCoroutine(MoverPalpebras(0.3f, 0f, 0.1f / multiplicadorVelocidade));
 
         yield return new WaitForSeconds(0.4f);
 
-        // --- PISCADELA 2: Vacila mas não desiste ---
-        // Vista do cenário embaçada, mas limpa de elementos de UI
+        // --- PISCADELA 2 ---
         yield return StartCoroutine(MoverPalpebras(0f, 0.6f, 0.15f / multiplicadorVelocidade));
         yield return StartCoroutine(MoverPalpebras(0.6f, 0.2f, 0.1f / multiplicadorVelocidade));
         yield return StartCoroutine(MoverPalpebras(0.2f, 0.7f, 0.15f / multiplicadorVelocidade));
@@ -128,15 +153,13 @@ public class PiscarAcordar : MonoBehaviour
 
         yield return new WaitForSeconds(0.3f);
 
-        // --- ABERTURA FINAL: Rápida mas suave no fim ---
+        // --- ABERTURA FINAL ---
         yield return StartCoroutine(MoverPalpebras(0f, 1.0f, 0.6f / multiplicadorVelocidade, true));
 
         estaParalisado = false;
         palpebraCima.gameObject.SetActive(false);
         palpebraBaixo.gameObject.SetActive(false);
 
-        // --- ATIVAÇÃO DA MIRA NO MOMENTO CERTO ---
-        // Os olhos estão abertos, a UI da mira pode finalmente aparecer de forma limpa
         if (crosshairDoJogador != null)
         {
             crosshairDoJogador.SetActive(true);
@@ -183,13 +206,40 @@ public class PiscarAcordar : MonoBehaviour
         {
             tempo += Time.deltaTime;
             float p = tempo / tempoTotalDesfoque;
+
+            // Diminui o desfoque gradualmente
             if (dof != null)
             {
                 dof.focalLength.value = Mathf.Lerp(300f, 30f, p);
                 dof.focusDistance.value = Mathf.Lerp(0.1f, 10f, p);
                 dof.aperture.value = Mathf.Lerp(1f, 16f, p);
             }
+
+            // Diminui a aberração cromática até 0
+            if (chromatic != null)
+            {
+                chromatic.intensity.value = Mathf.Lerp(1.0f, 0f, p);
+            }
+
+            // Diminui a distorção suavemente até 0
+            if (distortion != null)
+            {
+                distortion.intensity.value = Mathf.Lerp(-12f, 0f, p);
+            }
+
+            // NOVO: Diminui a Vignette (bordas pretas) suavemente de 0.45f até 0f
+            if (vignette != null)
+            {
+                vignette.intensity.value = Mathf.Lerp(0.45f, 0f, p);
+            }
+
             yield return null;
         }
+
+        // Desativa tudo por completo no fim para garantir ecrã 100% limpo
+        if (dof != null) dof.active = false;
+        if (chromatic != null) chromatic.active = false;
+        if (distortion != null) distortion.active = false;
+        if (vignette != null) vignette.active = false; // Desliga a Vignette completamente
     }
 }

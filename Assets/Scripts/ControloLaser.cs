@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using FMODUnity; // IMPORTANTE: Adicionado para o Unity reconhecer o FMOD
 
 [RequireComponent(typeof(LineRenderer))]
 public class ControloLaser : MonoBehaviour
@@ -24,6 +25,13 @@ public class ControloLaser : MonoBehaviour
     [Header("Visual (Fix do Rosa)")]
     public Material materialDoLaser;
 
+    [Header("Sons do FMOD (Contínuo)")]
+    [Tooltip("O evento do FMOD para o som em loop do laser.")]
+    public EventReference somLaserLoop;
+
+    // Instância privada para gerir o ciclo de vida do som contínuo
+    private FMOD.Studio.EventInstance somLaserInstancia;
+
     private float limiteAlinhamento = 0.05f;
 
     void Start()
@@ -37,6 +45,12 @@ public class ControloLaser : MonoBehaviour
         if (materialDoLaser == null && lineRenderer.sharedMaterial != null)
         {
             materialDoLaser = lineRenderer.sharedMaterial;
+        }
+
+        // Se o laser começar já ativado, liga o som imediatamente
+        if (laserAtivo)
+        {
+            LigarSomLaser();
         }
     }
 
@@ -54,6 +68,12 @@ public class ControloLaser : MonoBehaviour
             lineRenderer.endWidth = larguraLaser;
 
             DesenharLaser();
+
+            // Mantém a posição 3D do áudio colada ao emissor do laser
+            if (somLaserInstancia.isValid())
+            {
+                somLaserInstancia.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+            }
         }
         else
         {
@@ -129,6 +149,41 @@ public class ControloLaser : MonoBehaviour
     public void AlternarLaser()
     {
         laserAtivo = !laserAtivo;
-        if (!laserAtivo) lineRenderer.positionCount = 0;
+        if (!laserAtivo)
+        {
+            lineRenderer.positionCount = 0;
+            PararSomLaser(); // Desliga o áudio se o laser for desativado nesta função
+        }
+        else
+        {
+            LigarSomLaser(); // Liga o áudio se o laser for ativado nesta função
+        }
+    }
+
+    // Função interna e pública para iniciar o som de forma segura
+    public void LigarSomLaser()
+    {
+        if (!somLaserLoop.IsNull && !somLaserInstancia.isValid())
+        {
+            somLaserInstancia = RuntimeManager.CreateInstance(somLaserLoop);
+            somLaserInstancia.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+            somLaserInstancia.start();
+        }
+    }
+
+    // Função interna e pública para silenciar o áudio imediatamente (usada também no TimerNivel)
+    public void PararSomLaser()
+    {
+        if (somLaserInstancia.isValid())
+        {
+            somLaserInstancia.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            somLaserInstancia.release();
+        }
+    }
+
+    // Segurança: se o emissor for destruído ou mudares de cena, limpa o som da RAM
+    void OnDestroy()
+    {
+        PararSomLaser();
     }
 }

@@ -4271,6 +4271,13 @@ MonoBehaviour:
   tempoInicial: 240
   textoTimer: {fileID: 1879341437}
   fadeImage: {fileID: 254093765}
+  somExplosao:
+    Guid:
+      Data1: -441966712
+      Data2: 1331432496
+      Data3: -1206063719
+      Data4: 181095673
+    Path: "event:/FX/Explos\xE3o"
   forcaExplosao: 150
   raioExplosao: 30
   intensidadeTremor: 0.5
@@ -4844,6 +4851,13 @@ MonoBehaviour:
   larguraLaser: 0.1
   laserAtivo: 0
   materialDoLaser: {fileID: 0}
+  somLaserLoop:
+    Guid:
+      Data1: -392893461
+      Data2: 1078154159
+      Data3: -943333216
+      Data4: 1443838108
+    Path: event:/FX/LaserContinuo3
 --- !u!120 &1446835585
 LineRenderer:
   serializedVersion: 2
@@ -7278,11 +7292,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -454208337
-      Data2: 1223856881
-      Data3: -60513910
-      Data4: 2088407397
-    Path: event:/Ambient/MusicaSala1
+      Data1: -2306776
+      Data2: 1206040478
+      Data3: 855685027
+      Data4: 185985943
+    Path: event:/Ambient/MusicaSala4
   Event: 
   EventPlayTrigger: 1
   EventStopTrigger: 2

@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
+using FMODUnity; // IMPORTANTE: Adicionado para o Unity reconhecer o FMOD
 
 public class TimerNivel : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class TimerNivel : MonoBehaviour
 
     [Header("Referências UI")]
     public Image fadeImage;
+
+    [Header("Sons do FMOD")]
+    // Campo criado para selecionares o áudio da explosão no Inspector
+    public EventReference somExplosao;
 
     [Header("Efeito de Caos")]
     public float forcaExplosao = 250f;
@@ -50,14 +55,21 @@ public class TimerNivel : MonoBehaviour
     {
         jaAcabou = true;
 
+        // DISPARA O SOM DA EXPLOSÃO NO FMOD EXATAMENTE NO FRAME ZERO
+        if (!somExplosao.IsNull)
+        {
+            RuntimeManager.PlayOneShot(somExplosao, transform.position);
+        }
+
         // --- A PARTE QUE FALTA: DESLIGAR O LASER ---
         // Procura o script ControloLaser na cena e desliga-o
         ControloLaser scriptLaser = Object.FindFirstObjectByType<ControloLaser>();
         if (scriptLaser != null)
         {
             scriptLaser.laserAtivo = false;
-            // Se o teu script do laser tiver uma função de atualizar o estado visual,
-            // podes chamá-la aqui, mas mudar o 'laserAtivo' já deve resolver.
+
+            // ADICIONADO: Desliga imediatamente o som contínuo em loop do laser
+            scriptLaser.PararSomLaser();
         }
 
         // 1. EXPLOSÃO
