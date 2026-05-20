@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{5faeed72-ffa4-4831-9a90-ab31f57046b7}">
+		<property name="note" />
+		<property name="name">
+			<value>Laser_Timer</value>
+		</property>
+		<relationship name="folder">
+			<destination>{cb0ddb21-3b13-4421-9ed8-2aa39e8f1fc7}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{ffdf57b4-44f5-40c0-b395-5f701321e85d}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{ffdf57b4-44f5-40c0-b395-5f701321e85d}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
