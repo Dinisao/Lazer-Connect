@@ -104,9 +104,18 @@ public class InteracaoFinal : MonoBehaviour
 
         if (Physics.Raycast(raio, out hit, distanciaInteracao))
         {
+            // CORREÇÃO CIRÚRGICA: Suporta tanto o botão antigo como o novo InterruptorLaser
             if (hit.collider.CompareTag("Button"))
             {
-                Object.FindFirstObjectByType<ControloLaser>()?.AlternarLaser();
+                InterruptorLaser botao = hit.collider.GetComponent<InterruptorLaser>();
+                if (botao != null)
+                {
+                    botao.InteragirComInterruptor();
+                }
+                else
+                {
+                    Object.FindFirstObjectByType<ControloLaser>()?.AlternarLaser();
+                }
                 return;
             }
 
@@ -171,7 +180,7 @@ public class InteracaoFinal : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Chao"))
                 {
-                    // CORREÇÃO: Cache das variáveis antes de limpar o estado principal
+                    // Cache das variáveis antes de limpar o estado principal
                     GameObject espelhoParaColar = objetoNaMao;
                     Rigidbody rbParaColar = rbNaMao;
 
@@ -202,7 +211,6 @@ public class InteracaoFinal : MonoBehaviour
         }
     }
 
-    // CORREÇÃO: Passamos o objeto e o Rigidbody diretamente para garantir estabilidade multithread
     IEnumerator ColarParede(Vector3 ponto, Vector3 normal, GameObject espelho, Rigidbody rb)
     {
         if (espelho == null || rb == null) yield break;
