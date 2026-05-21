@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{a922bcff-4522-4fd5-92ec-b72e474e75e9}">
+		<property name="assetPath">
+			<value>AvisoComputador.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>1.750204081632653</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a12ccbd1-102c-45c2-85c4-b0f49b430b08}</destination>
+		</relationship>
+	</object>
+</objects>
