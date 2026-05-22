@@ -42,10 +42,10 @@ MonoBehaviour:
   Path: LazerConectFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639148841688715608
+  lastModified: 639150401592978505
   FileSizes:
   - Name: Desktop
-    Value: 34514240
+    Value: 34554848
   Exists: 1
 --- !u!114 &-8596946367301783972
 MonoBehaviour:
@@ -73,7 +73,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 174
+  Length: 100
 --- !u!114 &-8290714816499596135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +182,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-5614703759480600367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: "event:/FX/Bot\xE3oMaquinaLaser"
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: "event:/FX/Bot\xE3oMaquinaLaser"
+  Guid:
+    Data1: 1612809806
+    Data2: 1113469458
+    Data3: -1287150415
+    Data4: -1546489144
+  Banks:
+  - {fileID: -8735970236605278843}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 100
 --- !u!114 &-5478102766240245786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,13 +365,13 @@ MonoBehaviour:
     Data4: 432358603
   Banks:
   - {fileID: -8735970236605278843}
-  IsStream: 0
+  IsStream: 1
   Is3D: 0
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 240000
 --- !u!114 &-2894586137439924185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,10 +414,10 @@ MonoBehaviour:
   Path: LazerConectFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639148841688720649
+  lastModified: 639150401593069383
   FileSizes:
   - Name: Desktop
-    Value: 2432
+    Value: 2480
   Exists: 1
 --- !u!114 &-1303255770240053904
 MonoBehaviour:
@@ -497,12 +524,13 @@ MonoBehaviour:
   - {fileID: 1905610076298027770}
   - {fileID: 1072065163371574174}
   - {fileID: -3527567280482944694}
+  - {fileID: -5614703759480600367}
   EditorParameters: []
   MasterBanks:
   - {fileID: -8735970236605278843}
   StringsBanks:
   - {fileID: -1689326304350780100}
-  cacheTime: 639148841688720649
+  cacheTime: 639150401593069383
   cacheVersion: 131846
 --- !u!114 &425838733843971369
 MonoBehaviour:
@@ -1066,8 +1094,8 @@ MonoBehaviour:
   - {fileID: -8735970236605278843}
   IsStream: 0
   Is3D: 0
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 1750

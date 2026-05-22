@@ -107,6 +107,9 @@ public class InteracaoFinal : MonoBehaviour
             // CORREÇÃO CIRÚRGICA: Suporta tanto o botão antigo como o novo InterruptorLaser
             if (hit.collider.CompareTag("Button"))
             {
+                // ADICIONADO: Encontra o Emitter do FMOD acoplado ao botão e dá-lhe Play!
+                hit.collider.GetComponent<StudioEventEmitter>()?.Play();
+
                 InterruptorLaser botao = hit.collider.GetComponent<InterruptorLaser>();
                 if (botao != null)
                 {
