@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
-using FMODUnity; // IMPORTANTE: Adicionado para o Unity reconhecer o FMOD
+using FMODUnity;
 
 public class InteracaoFinal : MonoBehaviour
 {
@@ -12,7 +12,6 @@ public class InteracaoFinal : MonoBehaviour
     public GameObject objetoMira;
 
     [Header("Sons do Puzzle (FMOD)")]
-    // Campo criado para selecionares o áudio do encaixe no Inspector
     public EventReference somColarEspelho;
 
     [Header("Ajuste do ESPELHO")]
@@ -37,16 +36,23 @@ public class InteracaoFinal : MonoBehaviour
     private Tipo tipoAtual = Tipo.Nada;
 
     private Vector3 escalaOriginal;
-
-    // Variáveis específicas para o armário
     private Vector3 distanciaInicialArmario;
     private Vector3 eixoMovimentoArmario;
+    private float distanciaOriginalAoAgarrar;
 
-    // ADICIONADO: Garante que o rato fica escondido e trancado no meio do ecrã durante o jogo
+    // Variáveis para o MODO FANTASMA
+    private Collider colisorJogador;
+    private Collider colisorArmarioNaMao;
+
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        // Apanha o teu colisor físico para podermos desligar o choque com o armário
+        colisorJogador = GetComponent<Collider>();
+        if (colisorJogador == null) colisorJogador = GetComponentInChildren<Collider>();
+        if (colisorJogador == null) colisorJogador = GetComponent<CharacterController>();
     }
 
     void Update()
@@ -67,7 +73,6 @@ public class InteracaoFinal : MonoBehaviour
     {
         if (objetoNaMao == null || rbNaMao == null) return;
 
-        // Movimento suave do espelho na mão
         if (tipoAtual == Tipo.Espelho)
         {
             Vector3 posAlvo = pontoSegurar.position +
@@ -80,10 +85,16 @@ public class InteracaoFinal : MonoBehaviour
             Quaternion rotAlvo = pontoSegurar.rotation * Quaternion.Euler(0, 180, 0);
             rbNaMao.MoveRotation(Quaternion.Slerp(rbNaMao.rotation, rotAlvo, Time.fixedDeltaTime * forcaSeguirMirror));
         }
-        // Movimento restrito do armário
         else if (tipoAtual == Tipo.Armario)
         {
-            Vector3 posicaoAlvo = pontoSegurar.position + distanciaInicialArmario;
+            // O teu sistema perfeito que ignora olhares para o chão/teto
+            Vector3 dirPlana = Camera.main.transform.forward;
+            dirPlana.y = 0;
+            dirPlana.Normalize();
+
+            Vector3 pontoVirtual = Camera.main.transform.position + (dirPlana * distanciaInteracao);
+            Vector3 posicaoAlvo = pontoVirtual + distanciaInicialArmario;
+
             Vector3 direcaoLivre = posicaoAlvo - rbNaMao.position;
             direcaoLivre.y = 0;
 
@@ -94,11 +105,12 @@ public class InteracaoFinal : MonoBehaviour
 
     void ChequearDistanciaLimite()
     {
-        if (objetoNaMao == null || rbNaMao == null) return;
+        if (objetoNaMao == null || rbNaMao == null || tipoAtual != Tipo.Armario) return;
 
-        float distanciaAtual = Vector3.Distance(pontoSegurar.position, rbNaMao.position);
+        float distAtual = Vector3.Distance(Camera.main.transform.position, rbNaMao.position);
 
-        if (distanciaAtual > distanciaInteracao + 1.5f)
+        // Se te afastares muito ou se andares contra ele ao ponto de esmagar, larga automático!
+        if (distAtual > distanciaOriginalAoAgarrar + 1.5f || distAtual < distanciaOriginalAoAgarrar - 0.7f)
         {
             LargarOuColar();
         }
@@ -111,21 +123,12 @@ public class InteracaoFinal : MonoBehaviour
 
         if (Physics.Raycast(raio, out hit, distanciaInteracao))
         {
-            // CORREÇÃO CIRÚRGICA: Suporta tanto o botão antigo como o novo InterruptorLaser
             if (hit.collider.CompareTag("Button"))
             {
-                // Encontra o Emitter do FMOD acoplado ao botão e dá-lhe Play!
                 hit.collider.GetComponent<StudioEventEmitter>()?.Play();
-
                 InterruptorLaser botao = hit.collider.GetComponent<InterruptorLaser>();
-                if (botao != null)
-                {
-                    botao.InteragirComInterruptor();
-                }
-                else
-                {
-                    Object.FindFirstObjectByType<ControloLaser>()?.AlternarLaser();
-                }
+                if (botao != null) botao.InteragirComInterruptor();
+                else Object.FindFirstObjectByType<ControloLaser>()?.AlternarLaser();
                 return;
             }
 
@@ -156,13 +159,33 @@ public class InteracaoFinal : MonoBehaviour
                 tipoAtual = Tipo.Armario;
                 AtualizarEstadoMira(true);
 
-                rbNaMao.linearDamping = 5f;
-                distanciaInicialArmario = rbNaMao.position - pontoSegurar.position;
+                // ATIVA O MODO FANTASMA: Desliga a colisão entre o Jogador e o Armário
+                colisorArmarioNaMao = rb.GetComponent<Collider>();
+                if (colisorArmarioNaMao == null) colisorArmarioNaMao = rb.GetComponentInChildren<Collider>();
+
+                if (colisorJogador != null && colisorArmarioNaMao != null)
+                {
+                    Physics.IgnoreCollision(colisorJogador, colisorArmarioNaMao, true);
+                }
+
+                distanciaOriginalAoAgarrar = Vector3.Distance(Camera.main.transform.position, rbNaMao.position);
+
+                Vector3 dirPlana = Camera.main.transform.forward;
+                dirPlana.y = 0;
+                dirPlana.Normalize();
+                Vector3 pontoVirtual = Camera.main.transform.position + (dirPlana * distanciaInteracao);
+
+                distanciaInicialArmario = rbNaMao.position - pontoVirtual;
                 distanciaInicialArmario.y = 0;
 
                 eixoMovimentoArmario = hit.normal;
                 eixoMovimentoArmario.y = 0;
                 eixoMovimentoArmario.Normalize();
+
+                rbNaMao.isKinematic = false;
+                rbNaMao.useGravity = true;
+                rbNaMao.linearDamping = 5f;
+                rbNaMao.angularDamping = 10f;
             }
         }
     }
@@ -181,6 +204,13 @@ public class InteracaoFinal : MonoBehaviour
 
     void LargarOuColar()
     {
+        // DESLIGA O MODO FANTASMA: Volta a ligar a colisão para ele ficar sólido!
+        if (tipoAtual == Tipo.Armario && colisorJogador != null && colisorArmarioNaMao != null)
+        {
+            Physics.IgnoreCollision(colisorJogador, colisorArmarioNaMao, false);
+            colisorArmarioNaMao = null;
+        }
+
         if (tipoAtual == Tipo.Espelho)
         {
             RaycastHit hit;
@@ -190,13 +220,10 @@ public class InteracaoFinal : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Chao"))
                 {
-                    // Cache das variáveis antes de limpar o estado principal
                     GameObject espelhoParaColar = objetoNaMao;
                     Rigidbody rbParaColar = rbNaMao;
 
-                    // Desvincula imediatamente o objeto antes da Coroutine começar
                     espelhoParaColar.transform.SetParent(null);
-
                     objetoNaMao = null; rbNaMao = null; tipoAtual = Tipo.Nada;
                     AtualizarEstadoMira(true);
 
@@ -209,8 +236,10 @@ public class InteracaoFinal : MonoBehaviour
         }
         else if (tipoAtual == Tipo.Armario)
         {
-            rbNaMao.linearDamping = 100f;
             rbNaMao.linearVelocity = Vector3.zero;
+            rbNaMao.angularVelocity = Vector3.zero;
+            rbNaMao.linearDamping = 0.5f;
+
             objetoNaMao = null; rbNaMao = null; tipoAtual = Tipo.Nada;
             AtualizarEstadoMira(true);
         }
@@ -225,7 +254,6 @@ public class InteracaoFinal : MonoBehaviour
     {
         if (espelho == null || rb == null) yield break;
 
-        // Tranca a física de forma absoluta no frame 1
         rb.isKinematic = true;
         rb.useGravity = false;
         rb.linearVelocity = Vector3.zero;
@@ -252,31 +280,28 @@ public class InteracaoFinal : MonoBehaviour
             rotFinal = Quaternion.LookRotation(normal, Vector3.up);
         }
 
-        // TOCA O SOM DO FMOD EXATAMENTE NO MOMENTO DO SNAP (Antes de congelar na parede)
         if (!somColarEspelho.IsNull)
         {
             RuntimeManager.PlayOneShot(somColarEspelho, posFinal);
         }
 
-        // Sistema multi-frame ultra agressivo para garantir que a transformação é injetada
         for (int i = 0; i < 3; i++)
         {
             espelho.transform.position = posFinal;
             espelho.transform.rotation = rotFinal;
-
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-
             yield return new WaitForEndOfFrame();
         }
 
-        // Reativa os colisores com segurança
         foreach (var c in espelho.GetComponentsInChildren<Collider>()) c.enabled = true;
     }
 
     void SoltarNoChao()
     {
         if (objetoNaMao == null) return;
+
+        foreach (var c in objetoNaMao.GetComponentsInChildren<Collider>()) c.enabled = true;
 
         objetoNaMao.transform.SetParent(null);
         objetoNaMao.transform.localScale = escalaOriginal;
@@ -292,7 +317,6 @@ public class InteracaoFinal : MonoBehaviour
 
         rbNaMao.isKinematic = false;
         rbNaMao.useGravity = true;
-        foreach (var c in objetoNaMao.GetComponentsInChildren<Collider>()) c.enabled = true;
 
         objetoNaMao = null; rbNaMao = null;
     }
