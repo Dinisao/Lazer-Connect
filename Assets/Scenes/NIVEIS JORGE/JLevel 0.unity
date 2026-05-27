@@ -2761,7 +2761,7 @@ MonoBehaviour:
       Data2: 1254606085
       Data3: 1727502521
       Data4: -1818137063
-    Path: event:/Porta
+    Path: event:/FX/Porta
 --- !u!65 &1740933024
 BoxCollider:
   m_ObjectHideFlags: 0

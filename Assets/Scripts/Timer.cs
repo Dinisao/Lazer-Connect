@@ -68,7 +68,7 @@ public class TimerNivel : MonoBehaviour
         {
             scriptLaser.laserAtivo = false;
 
-            // ADICIONADO: Desliga imediatamente o som contínuo em loop do laser
+            // Desliga imediatamente o som contínuo em loop do laser
             scriptLaser.PararSomLaser();
         }
 
@@ -107,6 +107,10 @@ public class TimerNivel : MonoBehaviour
         }
 
         // 3. MENU PRINCIPAL
+        // ADICIONADO: Liberta o rato e torna-o visível no menu principal
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         SceneManager.LoadScene(0);
     }
 }

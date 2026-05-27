@@ -42,6 +42,13 @@ public class InteracaoFinal : MonoBehaviour
     private Vector3 distanciaInicialArmario;
     private Vector3 eixoMovimentoArmario;
 
+    // ADICIONADO: Garante que o rato fica escondido e trancado no meio do ecrã durante o jogo
+    void Start()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     void Update()
     {
         if (objetoNaMao == null) VerificarMira();
@@ -107,7 +114,7 @@ public class InteracaoFinal : MonoBehaviour
             // CORREÇÃO CIRÚRGICA: Suporta tanto o botão antigo como o novo InterruptorLaser
             if (hit.collider.CompareTag("Button"))
             {
-                // ADICIONADO: Encontra o Emitter do FMOD acoplado ao botão e dá-lhe Play!
+                // Encontra o Emitter do FMOD acoplado ao botão e dá-lhe Play!
                 hit.collider.GetComponent<StudioEventEmitter>()?.Play();
 
                 InterruptorLaser botao = hit.collider.GetComponent<InterruptorLaser>();
