@@ -2935,7 +2935,7 @@ MonoBehaviour:
   forcaSeguirMirror: 25
   tamanhoGrelha: 2
   offsetGrelha: {x: 1, y: 1, z: 1}
-  offsetMaoCaixa: {x: 0, y: -0.2, z: 0.5}
+  offsetMaoCaixa: {x: 0, y: -1.5, z: 2.5}
   forcaArrastarArmario: 15
 --- !u!4 &647041883 stripped
 Transform:

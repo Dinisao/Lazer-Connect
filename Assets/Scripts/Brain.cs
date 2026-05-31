@@ -30,6 +30,8 @@ public class InteracaoFinal : MonoBehaviour
     [Header("Ajuste do ARMARIO")]
     public float forcaArrastarArmario = 15f;
 
+    public static bool segurandoArmario = false;
+
     private GameObject objetoNaMao;
     private Rigidbody rbNaMao;
     private enum Tipo { Nada, Espelho, Caixa, Armario }
@@ -40,7 +42,6 @@ public class InteracaoFinal : MonoBehaviour
     private Vector3 eixoMovimentoArmario;
     private float distanciaOriginalAoAgarrar;
 
-    // Variáveis para o MODO FANTASMA
     private Collider colisorJogador;
     private Collider colisorArmarioNaMao;
 
@@ -49,7 +50,6 @@ public class InteracaoFinal : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        // Apanha o teu colisor físico para podermos desligar o choque com o armário
         colisorJogador = GetComponent<Collider>();
         if (colisorJogador == null) colisorJogador = GetComponentInChildren<Collider>();
         if (colisorJogador == null) colisorJogador = GetComponent<CharacterController>();
@@ -57,6 +57,8 @@ public class InteracaoFinal : MonoBehaviour
 
     void Update()
     {
+        if (MenuPausa.jogoPausado) return;
+
         if (objetoNaMao == null) VerificarMira();
         else ChequearDistanciaLimite();
 
@@ -67,6 +69,12 @@ public class InteracaoFinal : MonoBehaviour
         }
 
         if (Keyboard.current.rKey.wasPressedThisFrame) TentarRodar();
+
+        // FORÇA BRUTA PARA A CAIXA: Mantém a caixa estática no sítio certo sem stress
+        if (objetoNaMao != null && tipoAtual == Tipo.Caixa)
+        {
+            objetoNaMao.transform.localPosition = offsetMaoCaixa;
+        }
     }
 
     void FixedUpdate()
@@ -87,7 +95,6 @@ public class InteracaoFinal : MonoBehaviour
         }
         else if (tipoAtual == Tipo.Armario)
         {
-            // O teu sistema perfeito que ignora olhares para o chão/teto
             Vector3 dirPlana = Camera.main.transform.forward;
             dirPlana.y = 0;
             dirPlana.Normalize();
@@ -109,7 +116,6 @@ public class InteracaoFinal : MonoBehaviour
 
         float distAtual = Vector3.Distance(Camera.main.transform.position, rbNaMao.position);
 
-        // Se te afastares muito ou se andares contra ele ao ponto de esmagar, larga automático!
         if (distAtual > distanciaOriginalAoAgarrar + 1.5f || distAtual < distanciaOriginalAoAgarrar - 0.7f)
         {
             LargarOuColar();
@@ -148,8 +154,6 @@ public class InteracaoFinal : MonoBehaviour
                 AtualizarEstadoMira(false);
 
                 objetoNaMao.transform.SetParent(pontoSegurar);
-                objetoNaMao.transform.localScale = escalaOriginal;
-                objetoNaMao.transform.localPosition = offsetMaoCaixa;
                 objetoNaMao.transform.localRotation = Quaternion.Euler(0, 180, 0);
             }
             else if (hit.collider.CompareTag("Armario"))
@@ -159,7 +163,6 @@ public class InteracaoFinal : MonoBehaviour
                 tipoAtual = Tipo.Armario;
                 AtualizarEstadoMira(true);
 
-                // ATIVA O MODO FANTASMA: Desliga a colisão entre o Jogador e o Armário
                 colisorArmarioNaMao = rb.GetComponent<Collider>();
                 if (colisorArmarioNaMao == null) colisorArmarioNaMao = rb.GetComponentInChildren<Collider>();
 
@@ -204,7 +207,6 @@ public class InteracaoFinal : MonoBehaviour
 
     void LargarOuColar()
     {
-        // DESLIGA O MODO FANTASMA: Volta a ligar a colisão para ele ficar sólido!
         if (tipoAtual == Tipo.Armario && colisorJogador != null && colisorArmarioNaMao != null)
         {
             Physics.IgnoreCollision(colisorJogador, colisorArmarioNaMao, false);
@@ -301,24 +303,39 @@ public class InteracaoFinal : MonoBehaviour
     {
         if (objetoNaMao == null) return;
 
-        foreach (var c in objetoNaMao.GetComponentsInChildren<Collider>()) c.enabled = true;
-
+        // 1. Tira o parent e repõe a escala original
         objetoNaMao.transform.SetParent(null);
         objetoNaMao.transform.localScale = escalaOriginal;
-        tipoAtual = Tipo.Nada;
 
+        // 2. SISTEMA ANTI-COLUNAS E PAREDES (A BOLHA DE SEGURANÇA)
         Vector3 origem = Camera.main.transform.position;
         Vector3 direcao = objetoNaMao.transform.position - origem;
 
-        if (Physics.Raycast(origem, direcao.normalized, out RaycastHit hit, direcao.magnitude))
+        // Lançamos uma bolha gorda (0.25f de raio) que não passa pelas quinas.
+        // Ignoramos triggers para não bater em lasers ou luzes.
+        if (Physics.SphereCast(origem, 0.25f, direcao.normalized, out RaycastHit hit, direcao.magnitude, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
         {
-            objetoNaMao.transform.position = hit.point - (direcao.normalized * 0.2f);
+            // Se a bolha bater na coluna, colocamos a caixa no ponto de impacto.
+            // O hit.normal é a direção em que a parede está virada (para ti). 
+            // Multiplicamos por 0.35f para garantir que a caixa é empurrada 35cm para o teu lado, a salvo!
+            objetoNaMao.transform.position = hit.point + (hit.normal * 0.35f);
         }
 
+        // 3. Devolve a gravidade para ela cair naturalmente
         rbNaMao.isKinematic = false;
         rbNaMao.useGravity = true;
 
-        objetoNaMao = null; rbNaMao = null;
+        // 4. Trava qualquer velocidade fantasma para ela não ser atirada
+        rbNaMao.linearVelocity = Vector3.zero;
+        rbNaMao.angularVelocity = Vector3.zero;
+
+        // 5. Volta a ligar os colisores para bater no chão
+        foreach (var c in objetoNaMao.GetComponentsInChildren<Collider>()) c.enabled = true;
+
+        // 6. Limpa a mão
+        tipoAtual = Tipo.Nada;
+        objetoNaMao = null;
+        rbNaMao = null;
     }
 
     void TentarRodar()
