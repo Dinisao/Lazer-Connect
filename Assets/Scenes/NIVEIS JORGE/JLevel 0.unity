@@ -1217,6 +1217,13 @@ MonoBehaviour:
       Data3: 1022205089
       Data4: -799644751
     Path: event:/FX/EncaixeNaGrelha
+  somRodarEspelho:
+    Guid:
+      Data1: 114420932
+      Data2: 1289601507
+      Data3: 1690909374
+      Data4: -1375340475
+    Path: "event:/FX/Mec\xE2nicaDeRota\xE7\xE3o"
   distanciaColagem: 3.5
   offsetColagemMirror: 0.05
   offsetMaoMirror: {x: 0, y: 0, z: 0}

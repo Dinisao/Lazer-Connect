@@ -13,6 +13,7 @@ public class InteracaoFinal : MonoBehaviour
 
     [Header("Sons do Puzzle (FMOD)")]
     public EventReference somColarEspelho;
+    public EventReference somRodarEspelho; // ADICIONADO: O teu novo som de rotação!
 
     [Header("Ajuste do ESPELHO")]
     public float distanciaColagem = 4f;
@@ -303,36 +304,25 @@ public class InteracaoFinal : MonoBehaviour
     {
         if (objetoNaMao == null) return;
 
-        // 1. Tira o parent e repõe a escala original
         objetoNaMao.transform.SetParent(null);
         objetoNaMao.transform.localScale = escalaOriginal;
 
-        // 2. SISTEMA ANTI-COLUNAS E PAREDES (A BOLHA DE SEGURANÇA)
+        // O teu sistema da bolha gorda perfeito que impede de atravessar colunas
         Vector3 origem = Camera.main.transform.position;
         Vector3 direcao = objetoNaMao.transform.position - origem;
 
-        // Lançamos uma bolha gorda (0.25f de raio) que não passa pelas quinas.
-        // Ignoramos triggers para não bater em lasers ou luzes.
         if (Physics.SphereCast(origem, 0.25f, direcao.normalized, out RaycastHit hit, direcao.magnitude, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
         {
-            // Se a bolha bater na coluna, colocamos a caixa no ponto de impacto.
-            // O hit.normal é a direção em que a parede está virada (para ti). 
-            // Multiplicamos por 0.35f para garantir que a caixa é empurrada 35cm para o teu lado, a salvo!
             objetoNaMao.transform.position = hit.point + (hit.normal * 0.35f);
         }
 
-        // 3. Devolve a gravidade para ela cair naturalmente
         rbNaMao.isKinematic = false;
         rbNaMao.useGravity = true;
-
-        // 4. Trava qualquer velocidade fantasma para ela não ser atirada
         rbNaMao.linearVelocity = Vector3.zero;
         rbNaMao.angularVelocity = Vector3.zero;
 
-        // 5. Volta a ligar os colisores para bater no chão
         foreach (var c in objetoNaMao.GetComponentsInChildren<Collider>()) c.enabled = true;
 
-        // 6. Limpa a mão
         tipoAtual = Tipo.Nada;
         objetoNaMao = null;
         rbNaMao = null;
@@ -343,6 +333,12 @@ public class InteracaoFinal : MonoBehaviour
         if (objetoNaMao != null && tipoAtual == Tipo.Espelho)
         {
             objetoNaMao.GetComponent<MirrorRotate>()?.Rotate();
+
+            // TOCA O SOM QUANDO RODAS O ESPELHO QUE TENS NA MÃO
+            if (!somRodarEspelho.IsNull)
+            {
+                RuntimeManager.PlayOneShot(somRodarEspelho, objetoNaMao.transform.position);
+            }
         }
         else if (objetoNaMao == null)
         {
@@ -353,6 +349,12 @@ public class InteracaoFinal : MonoBehaviour
                 if (hit.collider.CompareTag("FixedMirror") || hit.collider.CompareTag("Mirror"))
                 {
                     hit.collider.GetComponentInParent<MirrorRotate>()?.Rotate();
+
+                    // TOCA O SOM QUANDO RODAS UM ESPELHO À DISTÂNCIA (NA PAREDE)
+                    if (!somRodarEspelho.IsNull)
+                    {
+                        RuntimeManager.PlayOneShot(somRodarEspelho, hit.point);
+                    }
                 }
             }
         }

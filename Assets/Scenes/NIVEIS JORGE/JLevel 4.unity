@@ -2929,6 +2929,13 @@ MonoBehaviour:
       Data3: 1022205089
       Data4: -799644751
     Path: event:/FX/EncaixeNaGrelha
+  somRodarEspelho:
+    Guid:
+      Data1: 114420932
+      Data2: 1289601507
+      Data3: 1690909374
+      Data4: -1375340475
+    Path: "event:/FX/Mec\xE2nicaDeRota\xE7\xE3o"
   distanciaColagem: 3.5
   offsetColagemMirror: 1.3
   offsetMaoMirror: {x: 0, y: -1, z: 0}
@@ -4069,7 +4076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b090a4032f0b514dbf0cf33ade3f570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FadeTransition
-  proximaCena: Menu
+  proximaCena: JLevel 5
   telaPreta: {fileID: 254093765}
   velocidadeFade: 1.5
 --- !u!65 &1078202690
