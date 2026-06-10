@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NIVEIS JORGE/JLevel 5.unity
     guid: 6251608f0e7018d44864412300e259f0
+  - enabled: 1
+    path: Assets/Scenes/NIVEIS JORGE/Creditos.unity
+    guid: 70b6e7d72a22c6d49aa18d355728bf3d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
