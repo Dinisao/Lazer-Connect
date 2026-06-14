@@ -4024,6 +4024,8 @@ MonoBehaviour:
       Data3: -943333216
       Data4: 1443838108
     Path: event:/FX/LaserContinuo3
+  isolarSomAmbiente: 1
+  emissorAmbiente: {fileID: 1922620824}
 --- !u!120 &1751775610
 LineRenderer:
   serializedVersion: 2

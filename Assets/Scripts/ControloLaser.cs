@@ -29,6 +29,14 @@ public class ControloLaser : MonoBehaviour
     [Tooltip("O evento do FMOD para o som em loop do laser.")]
     public EventReference somLaserLoop;
 
+    // --- NOVIDADE AQUI ---
+    [Header("Controlo de Áudio FMOD (Ambiente)")]
+    [Tooltip("Ativa isto APENAS no Nível 0 para calar o ambiente")]
+    public bool isolarSomAmbiente = false;
+    [Tooltip("Arrasta para aqui o objeto que tem o Studio Event Emitter do som da sala")]
+    public StudioEventEmitter emissorAmbiente;
+    // ---------------------
+
     // Instância privada para gerir o ciclo de vida do som contínuo
     private FMOD.Studio.EventInstance somLaserInstancia;
 
@@ -163,6 +171,12 @@ public class ControloLaser : MonoBehaviour
     // Função interna e pública para iniciar o som de forma segura
     public void LigarSomLaser()
     {
+        // --- NOVIDADE AQUI: CALA O AMBIENTE ---
+        if (isolarSomAmbiente && emissorAmbiente != null)
+        {
+            emissorAmbiente.Stop();
+        }
+
         if (!somLaserLoop.IsNull && !somLaserInstancia.isValid())
         {
             somLaserInstancia = RuntimeManager.CreateInstance(somLaserLoop);
@@ -174,6 +188,12 @@ public class ControloLaser : MonoBehaviour
     // Função interna e pública para silenciar o áudio imediatamente (usada também no TimerNivel)
     public void PararSomLaser()
     {
+        // --- NOVIDADE AQUI: DEVOLVE O AMBIENTE ---
+        if (isolarSomAmbiente && emissorAmbiente != null)
+        {
+            emissorAmbiente.Play();
+        }
+
         if (somLaserInstancia.isValid())
         {
             somLaserInstancia.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
