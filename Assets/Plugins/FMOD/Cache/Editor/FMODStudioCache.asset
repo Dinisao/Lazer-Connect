@@ -42,7 +42,7 @@ MonoBehaviour:
   Path: LazerConectFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639154830006774444
+  lastModified: 639155018690393730
   FileSizes:
   - Name: Desktop
     Value: 34561312
@@ -414,7 +414,7 @@ MonoBehaviour:
   Path: LazerConectFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639154830006885059
+  lastModified: 639155018690493465
   FileSizes:
   - Name: Desktop
     Value: 2516
@@ -531,7 +531,7 @@ MonoBehaviour:
   - {fileID: -8735970236605278843}
   StringsBanks:
   - {fileID: -1689326304350780100}
-  cacheTime: 639154830006885059
+  cacheTime: 639155018690493465
   cacheVersion: 131846
 --- !u!114 &425838733843971369
 MonoBehaviour:
