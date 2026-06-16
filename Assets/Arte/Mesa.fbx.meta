@@ -1,9 +1,64 @@
 fileFormatVersion: 2
-guid: a10fb5f284f2e78438daef9fb304a57b
+guid: 058de0121735456429904aa976e1f571
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Button
+    second: {fileID: 2800000, guid: daa5bcb0889fe4d41b1aee5d243249bc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Capa
+    second: {fileID: 2800000, guid: aa23ac16f1a0dd14aac08698d1f43e61, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Comando
+    second: {fileID: 2800000, guid: 2c8cc93735f270a4b92570093a09df90, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Fio
+    second: {fileID: 2800000, guid: 1aeacce1bcd187a4ca7f1af1585f72b5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Folder
+    second: {fileID: 2800000, guid: 686cce38666072b42b0279d7978848d1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Maquina
+    second: {fileID: 2800000, guid: 408bb576964d0ee4d9ec4273f04b8614, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Metal_Maquina
+    second: {fileID: 2800000, guid: f19101243a3ab5140934b5f2728c50ab, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PC_Preto
+    second: {fileID: 2800000, guid: dfe0b558c582c93438dce2ca84d5547a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WarningTexture
+    second: {fileID: 2800000, guid: b81c11002228a9845a8cbc0860ad3062, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: metal
+    second: {fileID: 2800000, guid: f6cfdffa18b080c45a08475b7a7b35ba, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wood
+    second: {fileID: 2800000, guid: 73b1bfd347c6b444abd13db70097ab8b, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
