@@ -3,7 +3,22 @@ guid: ca8eb2a38038b174ba6c97d5ea197cff
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Almofada
+    second: {fileID: 2800000, guid: cf49fdca440227547bf0745b7593ddb3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cadeira
+    second: {fileID: 2800000, guid: 0a1b130fe73319143a98d586c9153a1e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Pes
+    second: {fileID: 2800000, guid: 9b25584469903d447b6fc9d4cd8137d9, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
