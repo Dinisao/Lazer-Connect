@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 5a3bbca11eb2bd64ebc57163b248695e
+guid: 1c9fe26591c25714db27550c54f5e798
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2800000, guid: 5fb2ee2b6b2a1db4aad86f15e0d8b2f8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Orange
+    second: {fileID: 2800000, guid: 7a4b8be1a3491dd4586eb35aeba892b0, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

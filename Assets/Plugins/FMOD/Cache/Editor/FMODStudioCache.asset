@@ -42,10 +42,10 @@ MonoBehaviour:
   Path: LazerConectFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639154830006774444
+  lastModified: 639172987508198090
   FileSizes:
   - Name: Desktop
-    Value: 34561312
+    Value: 34567392
   Exists: 1
 --- !u!114 &-8596946367301783972
 MonoBehaviour:
@@ -414,10 +414,10 @@ MonoBehaviour:
   Path: LazerConectFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639154830006885059
+  lastModified: 639172987508247967
   FileSizes:
   - Name: Desktop
-    Value: 2516
+    Value: 2548
   Exists: 1
 --- !u!114 &-1303255770240053904
 MonoBehaviour:
@@ -526,12 +526,13 @@ MonoBehaviour:
   - {fileID: -3527567280482944694}
   - {fileID: -5614703759480600367}
   - {fileID: 7666191194981850118}
+  - {fileID: 8887987902094106469}
   EditorParameters: []
   MasterBanks:
   - {fileID: -8735970236605278843}
   StringsBanks:
   - {fileID: -1689326304350780100}
-  cacheTime: 639154830006885059
+  cacheTime: 639172987508247967
   cacheVersion: 131846
 --- !u!114 &425838733843971369
 MonoBehaviour:
@@ -721,7 +722,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 203
 --- !u!114 &2665721557641418874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,7 +749,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 203
 --- !u!114 &3075232009010310889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1127,3 +1128,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1750
+--- !u!114 &8887987902094106469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambient/MusicaSala5
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Ambient/MusicaSala5
+  Guid:
+    Data1: 506999021
+    Data2: 1222291510
+    Data3: -1442377551
+    Data4: 1219365053
+  Banks:
+  - {fileID: -8735970236605278843}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 300000
