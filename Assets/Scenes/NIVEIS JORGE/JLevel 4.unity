@@ -1668,6 +1668,7 @@ GameObject:
   - component: {fileID: 377843088}
   - component: {fileID: 377843090}
   - component: {fileID: 377843089}
+  - component: {fileID: 377843091}
   m_Layer: 6
   m_Name: GameObject (5)
   m_TagString: Mirror
@@ -1734,6 +1735,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MirrorRotate
   objetoBase: {fileID: 535281401}
   anguloRotacao: 90
+--- !u!114 &377843091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377843087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3bdcd4b07c5d4794f636c20bf2179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SomImpacto
+  somBaterNoChao:
+    Guid:
+      Data1: 1257597506
+      Data2: 1240828521
+      Data3: -1257217127
+      Data4: 382136015
+    Path: "event:/FX/EspelhoCaiNoCh\xE3o"
+  forcaMinima: 1.5
 --- !u!1 &396760311
 GameObject:
   m_ObjectHideFlags: 0
@@ -2072,8 +2093,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5467505546295812834, guid: 4017eda2ce95ddf4ba979c0b200cc02c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 446530177}
   m_SourcePrefab: {fileID: 100100000, guid: 4017eda2ce95ddf4ba979c0b200cc02c, type: 3}
+--- !u!1 &446530176 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5467505546295812834, guid: 4017eda2ce95ddf4ba979c0b200cc02c, type: 3}
+  m_PrefabInstance: {fileID: 446530175}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &446530177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446530176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3bdcd4b07c5d4794f636c20bf2179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SomImpacto
+  somBaterNoChao:
+    Guid:
+      Data1: 1271037072
+      Data2: 1317878985
+      Data3: -1447891567
+      Data4: -287069480
+    Path: "event:/FX/CaixaCaiNoCh\xE3o"
+  forcaMinima: 1.5
 --- !u!1 &466393346
 GameObject:
   m_ObjectHideFlags: 0
@@ -6986,6 +7035,7 @@ GameObject:
   - component: {fileID: 1633064535}
   - component: {fileID: 1633064537}
   - component: {fileID: 1633064536}
+  - component: {fileID: 1633064538}
   m_Layer: 6
   m_Name: GameObject (3)
   m_TagString: Mirror
@@ -7052,6 +7102,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MirrorRotate
   objetoBase: {fileID: 351694366}
   anguloRotacao: 90
+--- !u!114 &1633064538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633064534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3bdcd4b07c5d4794f636c20bf2179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SomImpacto
+  somBaterNoChao:
+    Guid:
+      Data1: 1257597506
+      Data2: 1240828521
+      Data3: -1257217127
+      Data4: 382136015
+    Path: "event:/FX/EspelhoCaiNoCh\xE3o"
+  forcaMinima: 1.5
 --- !u!1 &1654422606
 GameObject:
   m_ObjectHideFlags: 0
@@ -9538,6 +9608,7 @@ GameObject:
   - component: {fileID: 2078233323}
   - component: {fileID: 2078233325}
   - component: {fileID: 2078233324}
+  - component: {fileID: 2078233326}
   m_Layer: 6
   m_Name: GameObject (4)
   m_TagString: Mirror
@@ -9604,6 +9675,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MirrorRotate
   objetoBase: {fileID: 716168922}
   anguloRotacao: 90
+--- !u!114 &2078233326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078233322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3bdcd4b07c5d4794f636c20bf2179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SomImpacto
+  somBaterNoChao:
+    Guid:
+      Data1: 1257597506
+      Data2: 1240828521
+      Data3: -1257217127
+      Data4: 382136015
+    Path: "event:/FX/EspelhoCaiNoCh\xE3o"
+  forcaMinima: 1.5
 --- !u!1 &2095709072
 GameObject:
   m_ObjectHideFlags: 0
@@ -9680,6 +9771,7 @@ GameObject:
   - component: {fileID: 2112386524}
   - component: {fileID: 2112386526}
   - component: {fileID: 2112386525}
+  - component: {fileID: 2112386527}
   m_Layer: 6
   m_Name: GameObject (2)
   m_TagString: Mirror
@@ -9746,6 +9838,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MirrorRotate
   objetoBase: {fileID: 1718688760}
   anguloRotacao: 90
+--- !u!114 &2112386527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112386523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3bdcd4b07c5d4794f636c20bf2179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SomImpacto
+  somBaterNoChao:
+    Guid:
+      Data1: 1257597506
+      Data2: 1240828521
+      Data3: -1257217127
+      Data4: 382136015
+    Path: "event:/FX/EspelhoCaiNoCh\xE3o"
+  forcaMinima: 1.5
 --- !u!1001 &2122900939
 PrefabInstance:
   m_ObjectHideFlags: 0

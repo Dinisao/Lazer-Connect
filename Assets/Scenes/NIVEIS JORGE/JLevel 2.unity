@@ -1174,13 +1174,41 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5467505546295812834, guid: 4017eda2ce95ddf4ba979c0b200cc02c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 174595686}
   m_SourcePrefab: {fileID: 100100000, guid: 4017eda2ce95ddf4ba979c0b200cc02c, type: 3}
 --- !u!4 &174595684 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4660007351632328792, guid: 4017eda2ce95ddf4ba979c0b200cc02c, type: 3}
   m_PrefabInstance: {fileID: 174595683}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &174595685 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5467505546295812834, guid: 4017eda2ce95ddf4ba979c0b200cc02c, type: 3}
+  m_PrefabInstance: {fileID: 174595683}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &174595686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174595685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3bdcd4b07c5d4794f636c20bf2179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SomImpacto
+  somBaterNoChao:
+    Guid:
+      Data1: 1271037072
+      Data2: 1317878985
+      Data3: -1447891567
+      Data4: -287069480
+    Path: "event:/FX/CaixaCaiNoCh\xE3o"
+  forcaMinima: 1.5
 --- !u!1 &177001426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1333,6 +1361,7 @@ GameObject:
   - component: {fileID: 210130420}
   - component: {fileID: 210130421}
   - component: {fileID: 210130422}
+  - component: {fileID: 210130423}
   m_Layer: 6
   m_Name: GameObject (3)
   m_TagString: Untagged
@@ -1399,6 +1428,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &210130423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210130419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3bdcd4b07c5d4794f636c20bf2179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SomImpacto
+  somBaterNoChao:
+    Guid:
+      Data1: 1257597506
+      Data2: 1240828521
+      Data3: -1257217127
+      Data4: 382136015
+    Path: "event:/FX/EspelhoCaiNoCh\xE3o"
+  forcaMinima: 1.5
 --- !u!1 &217170916
 GameObject:
   m_ObjectHideFlags: 0
@@ -3084,6 +3133,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1c9fe26591c25714db27550c54f5e798, type: 3}
       insertIndex: -1
       addedObject: {fileID: 599487301}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1c9fe26591c25714db27550c54f5e798, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 599487303}
   m_SourcePrefab: {fileID: 100100000, guid: 1c9fe26591c25714db27550c54f5e798, type: 3}
 --- !u!4 &599487299 stripped
 Transform:
@@ -3143,6 +3195,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &599487303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599487300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3bdcd4b07c5d4794f636c20bf2179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SomImpacto
+  somBaterNoChao:
+    Guid:
+      Data1: 1271037072
+      Data2: 1317878985
+      Data3: -1447891567
+      Data4: -287069480
+    Path: "event:/FX/CaixaCaiNoCh\xE3o"
+  forcaMinima: 1.5
 --- !u!1 &606040055
 GameObject:
   m_ObjectHideFlags: 0
@@ -3933,6 +4005,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1c9fe26591c25714db27550c54f5e798, type: 3}
       insertIndex: -1
       addedObject: {fileID: 789485341}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1c9fe26591c25714db27550c54f5e798, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 789485343}
   m_SourcePrefab: {fileID: 100100000, guid: 1c9fe26591c25714db27550c54f5e798, type: 3}
 --- !u!4 &789485339 stripped
 Transform:
@@ -3992,6 +4067,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &789485343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789485340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3bdcd4b07c5d4794f636c20bf2179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SomImpacto
+  somBaterNoChao:
+    Guid:
+      Data1: 1271037072
+      Data2: 1317878985
+      Data3: -1447891567
+      Data4: -287069480
+    Path: "event:/FX/CaixaCaiNoCh\xE3o"
+  forcaMinima: 1.5
 --- !u!1 &814621444
 GameObject:
   m_ObjectHideFlags: 0
@@ -5542,6 +5637,7 @@ GameObject:
   - component: {fileID: 1320113048}
   - component: {fileID: 1320113049}
   - component: {fileID: 1320113050}
+  - component: {fileID: 1320113051}
   m_Layer: 6
   m_Name: GameObject (2)
   m_TagString: Untagged
@@ -5608,6 +5704,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1320113051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320113047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3bdcd4b07c5d4794f636c20bf2179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SomImpacto
+  somBaterNoChao:
+    Guid:
+      Data1: 1257597506
+      Data2: 1240828521
+      Data3: -1257217127
+      Data4: 382136015
+    Path: "event:/FX/EspelhoCaiNoCh\xE3o"
+  forcaMinima: 1.5
 --- !u!1 &1327323195
 GameObject:
   m_ObjectHideFlags: 0
@@ -7448,13 +7564,41 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5467505546295812834, guid: 4017eda2ce95ddf4ba979c0b200cc02c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1702697952}
   m_SourcePrefab: {fileID: 100100000, guid: 4017eda2ce95ddf4ba979c0b200cc02c, type: 3}
 --- !u!4 &1702697950 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4660007351632328792, guid: 4017eda2ce95ddf4ba979c0b200cc02c, type: 3}
   m_PrefabInstance: {fileID: 1702697949}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1702697951 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5467505546295812834, guid: 4017eda2ce95ddf4ba979c0b200cc02c, type: 3}
+  m_PrefabInstance: {fileID: 1702697949}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1702697952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702697951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3bdcd4b07c5d4794f636c20bf2179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SomImpacto
+  somBaterNoChao:
+    Guid:
+      Data1: 1271037072
+      Data2: 1317878985
+      Data3: -1447891567
+      Data4: -287069480
+    Path: "event:/FX/CaixaCaiNoCh\xE3o"
+  forcaMinima: 1.5
 --- !u!1 &1772510630
 GameObject:
   m_ObjectHideFlags: 0
@@ -7574,6 +7718,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1c9fe26591c25714db27550c54f5e798, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1782660101}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1c9fe26591c25714db27550c54f5e798, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1782660103}
   m_SourcePrefab: {fileID: 100100000, guid: 1c9fe26591c25714db27550c54f5e798, type: 3}
 --- !u!4 &1782660099 stripped
 Transform:
@@ -7633,6 +7780,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1782660103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782660100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3bdcd4b07c5d4794f636c20bf2179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SomImpacto
+  somBaterNoChao:
+    Guid:
+      Data1: 1271037072
+      Data2: 1317878985
+      Data3: -1447891567
+      Data4: -287069480
+    Path: "event:/FX/CaixaCaiNoCh\xE3o"
+  forcaMinima: 1.5
 --- !u!1 &1784577175
 GameObject:
   m_ObjectHideFlags: 0
@@ -8470,6 +8637,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1c9fe26591c25714db27550c54f5e798, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1978969269}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1c9fe26591c25714db27550c54f5e798, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1978969271}
   m_SourcePrefab: {fileID: 100100000, guid: 1c9fe26591c25714db27550c54f5e798, type: 3}
 --- !u!4 &1978969267 stripped
 Transform:
@@ -8529,6 +8699,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1978969271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978969268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3bdcd4b07c5d4794f636c20bf2179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SomImpacto
+  somBaterNoChao:
+    Guid:
+      Data1: 1271037072
+      Data2: 1317878985
+      Data3: -1447891567
+      Data4: -287069480
+    Path: "event:/FX/CaixaCaiNoCh\xE3o"
+  forcaMinima: 1.5
 --- !u!1001 &2004560795
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1062,6 +1062,7 @@ GameObject:
   - component: {fileID: 363163934}
   - component: {fileID: 363163936}
   - component: {fileID: 363163935}
+  - component: {fileID: 363163937}
   m_Layer: 6
   m_Name: GameObject (2)
   m_TagString: Mirror
@@ -1128,6 +1129,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MirrorRotate
   objetoBase: {fileID: 693133252}
   anguloRotacao: 90
+--- !u!114 &363163937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363163933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3bdcd4b07c5d4794f636c20bf2179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SomImpacto
+  somBaterNoChao:
+    Guid:
+      Data1: 1257597506
+      Data2: 1240828521
+      Data3: -1257217127
+      Data4: 382136015
+    Path: "event:/FX/EspelhoCaiNoCh\xE3o"
+  forcaMinima: 1.5
 --- !u!1 &398399074
 GameObject:
   m_ObjectHideFlags: 0
@@ -4989,6 +5010,7 @@ GameObject:
   - component: {fileID: 1373794361}
   - component: {fileID: 1373794363}
   - component: {fileID: 1373794362}
+  - component: {fileID: 1373794364}
   m_Layer: 6
   m_Name: GameObject (4)
   m_TagString: Mirror
@@ -5055,6 +5077,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MirrorRotate
   objetoBase: {fileID: 1916705371}
   anguloRotacao: 90
+--- !u!114 &1373794364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1373794360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3bdcd4b07c5d4794f636c20bf2179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SomImpacto
+  somBaterNoChao:
+    Guid:
+      Data1: 1257597506
+      Data2: 1240828521
+      Data3: -1257217127
+      Data4: 382136015
+    Path: "event:/FX/EspelhoCaiNoCh\xE3o"
+  forcaMinima: 1.5
 --- !u!1001 &1390711544
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5242,6 +5284,8 @@ MonoBehaviour:
       Data3: -943333216
       Data4: 1443838108
     Path: event:/FX/LaserContinuo3
+  isolarSomAmbiente: 0
+  emissorAmbiente: {fileID: 0}
 --- !u!120 &1405951679
 LineRenderer:
   serializedVersion: 2
@@ -8252,6 +8296,7 @@ GameObject:
   - component: {fileID: 1980915402}
   - component: {fileID: 1980915404}
   - component: {fileID: 1980915403}
+  - component: {fileID: 1980915405}
   m_Layer: 6
   m_Name: GameObject (5)
   m_TagString: Mirror
@@ -8318,6 +8363,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MirrorRotate
   objetoBase: {fileID: 1253051976}
   anguloRotacao: 90
+--- !u!114 &1980915405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980915401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3bdcd4b07c5d4794f636c20bf2179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SomImpacto
+  somBaterNoChao:
+    Guid:
+      Data1: 1257597506
+      Data2: 1240828521
+      Data3: -1257217127
+      Data4: 382136015
+    Path: "event:/FX/EspelhoCaiNoCh\xE3o"
+  forcaMinima: 1.5
 --- !u!1 &2010367163
 GameObject:
   m_ObjectHideFlags: 0
