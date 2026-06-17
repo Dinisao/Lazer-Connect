@@ -5,7 +5,7 @@
 			<value>EspelhoCaiNoChão</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{f172eaf2-2169-425b-8a9e-be51d15d14c1}</destination>
@@ -59,11 +59,18 @@
 	<object class="EventAutomatableProperties" id="{128dc6ab-3a43-44ec-9ccb-41007af0a94f}" />
 	<object class="MarkerTrack" id="{26aafb08-44c9-4c2c-9135-140af544ee8e}" />
 	<object class="GroupTrack" id="{cce21603-422b-41d9-ac3d-7ae65cfb0ad7}">
+		<relationship name="modules">
+			<destination>{d49fdf9f-2b9d-4dfb-a29c-516a8877063d}</destination>
+		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{2d65c152-82ca-4be7-809c-ff3a8fa1d152}</destination>
 		</relationship>
 	</object>
-	<object class="Timeline" id="{f163dabc-b6cb-4117-98c5-1441d4008b54}" />
+	<object class="Timeline" id="{f163dabc-b6cb-4117-98c5-1441d4008b54}">
+		<relationship name="modules">
+			<destination>{d49fdf9f-2b9d-4dfb-a29c-516a8877063d}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerMaster" id="{2d4f06a3-acdb-41b3-a991-c73cd61eebc0}">
 		<relationship name="effectChain">
 			<destination>{3463882b-0ff0-4fa6-b5be-bf00a7bb8838}</destination>
@@ -81,6 +88,20 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{64bae278-0acd-439f-bac8-1cdea8b8c37d}" />
+	<object class="SingleSound" id="{d49fdf9f-2b9d-4dfb-a29c-516a8877063d}">
+		<property name="length">
+			<value>0.2038095238095238</value>
+		</property>
+		<property name="volume">
+			<value>-5</value>
+		</property>
+		<property name="pitch">
+			<value>3.20000005</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{eb3c84e8-1298-48ad-abf4-3564437ef5b4}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerGroup" id="{2d65c152-82ca-4be7-809c-ff3a8fa1d152}">
 		<property name="name">
 			<value>Audio 1</value>
