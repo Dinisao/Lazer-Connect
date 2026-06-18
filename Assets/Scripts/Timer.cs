@@ -127,10 +127,9 @@ public class TimerNivel : MonoBehaviour
             yield return null;
         }
 
-        // 3. MENU PRINCIPAL
+        // 3. GAME OVER - substitui o SceneManager.LoadScene(0)
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-
-        SceneManager.LoadScene(0);
+        Object.FindFirstObjectByType<MenuPausa>()?.MostrarGameOver();
     }
 }

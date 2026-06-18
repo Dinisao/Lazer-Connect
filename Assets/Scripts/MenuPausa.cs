@@ -3,34 +3,36 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using StarterAssets;
+using TMPro;
 
 public class MenuPausa : MonoBehaviour
 {
     [Header("UI")]
     public GameObject painelPausa;
     public Slider sliderVolume;
+    public TextMeshProUGUI tituloPausa;
+
+    [Header("Game Over")]
+    public GameObject botaoResume;
 
     [Header("Configurações")]
-    public string nomeCenaMenuPrincipal = "MenuPrincipal";
-
+    public string nomeCenaMenuPrincipal = "Menu";
     public static bool jogoPausado = false;
 
     void Start()
     {
         painelPausa.SetActive(false);
         jogoPausado = false;
-
-        // Garante que o som arranca despausado quando a cena carrega
         FMODUnity.RuntimeManager.GetBus("bus:/").setPaused(false);
-
         if (sliderVolume != null)
-        {
             sliderVolume.value = 1f;
-        }
     }
 
     void Update()
     {
+        // Bloqueia ESC durante game over
+        if (jogoPausado && botaoResume != null && !botaoResume.activeSelf) return;
+
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             if (jogoPausado) ContinuarJogo();
@@ -38,13 +40,36 @@ public class MenuPausa : MonoBehaviour
         }
     }
 
+    public void MostrarGameOver()
+    {
+        painelPausa.SetActive(true);
+        jogoPausado = true;
+
+        // Esconde Resume e Slider
+        if (botaoResume != null)
+            botaoResume.SetActive(false);
+
+        // Muda o título
+        if (tituloPausa != null)
+            tituloPausa.text = "The Reactor Exploded!";
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     public void PausarJogo()
     {
+        // Restaura tudo para o estado normal de pausa
+        if (botaoResume != null)
+            botaoResume.SetActive(true);
+        if (sliderVolume != null)
+            sliderVolume.gameObject.SetActive(true);
+        if (tituloPausa != null)
+            tituloPausa.text = "Pausa";
+
         painelPausa.SetActive(true);
         Time.timeScale = 0f;
         jogoPausado = true;
-
-        // PÁRA O SOM DO FMOD! Congela o Master Bus inteiro.
         FMODUnity.RuntimeManager.GetBus("bus:/").setPaused(true);
 
         var inputs = Object.FindFirstObjectByType<StarterAssetsInputs>();
@@ -53,12 +78,8 @@ public class MenuPausa : MonoBehaviour
             inputs.cursorLocked = false;
             inputs.cursorInputForLook = false;
         }
-
         var controller = Object.FindFirstObjectByType<FirstPersonController>();
-        if (controller != null)
-        {
-            controller.enabled = false;
-        }
+        if (controller != null) controller.enabled = false;
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -69,8 +90,6 @@ public class MenuPausa : MonoBehaviour
         painelPausa.SetActive(false);
         Time.timeScale = 1f;
         jogoPausado = false;
-
-        // DESCONGELA O SOM DO FMOD!
         FMODUnity.RuntimeManager.GetBus("bus:/").setPaused(false);
 
         var inputs = Object.FindFirstObjectByType<StarterAssetsInputs>();
@@ -79,26 +98,34 @@ public class MenuPausa : MonoBehaviour
             inputs.cursorLocked = true;
             inputs.cursorInputForLook = true;
         }
-
         var controller = Object.FindFirstObjectByType<FirstPersonController>();
-        if (controller != null)
-        {
-            controller.enabled = true;
-        }
+        if (controller != null) controller.enabled = true;
 
         Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void ReiniciarNivel()
     {
-        ContinuarJogo(); // O ContinuarJogo já despausa o som e a câmara automaticamente!
+        Time.timeScale = 1f;
+        jogoPausado = false;
+        FMODUnity.RuntimeManager.GetBus("bus:/").setPaused(false);
+        if (botaoResume != null)
+            botaoResume.SetActive(true);
+        if (sliderVolume != null)
+            sliderVolume.gameObject.SetActive(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void IrParaMenu()
     {
-        ContinuarJogo();
+        Time.timeScale = 1f;
+        jogoPausado = false;
+        FMODUnity.RuntimeManager.GetBus("bus:/").setPaused(false);
+        if (botaoResume != null)
+            botaoResume.SetActive(true);
+        if (sliderVolume != null)
+            sliderVolume.gameObject.SetActive(true);
         SceneManager.LoadScene(nomeCenaMenuPrincipal);
     }
 
