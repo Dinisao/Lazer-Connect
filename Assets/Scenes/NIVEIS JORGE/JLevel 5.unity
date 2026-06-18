@@ -8124,6 +8124,69 @@ MonoBehaviour:
       Data4: 382136015
     Path: "event:/FX/EspelhoCaiNoCh\xE3o"
   forcaMinima: 1.5
+--- !u!1 &1356311002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1356311004}
+  - component: {fileID: 1356311003}
+  m_Layer: 0
+  m_Name: FMOD_MX (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1356311003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356311002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 740133554
+      Data2: 1098167159
+      Data3: 119050928
+      Data4: -1978790508
+    Path: event:/FX/AvisoComputador
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!4 &1356311004
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356311002}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1410607638
 GameObject:
   m_ObjectHideFlags: 0
@@ -8856,8 +8919,9 @@ MonoBehaviour:
       Data3: -943333216
       Data4: 1443838108
     Path: event:/FX/LaserContinuo3
-  isolarSomAmbiente: 0
-  emissorAmbiente: {fileID: 0}
+  modoAlarmeInicial: 1
+  emissorAlarme: {fileID: 1356311003}
+  emissorAmbiente: {fileID: 1926620514}
 --- !u!120 &1446835585
 LineRenderer:
   serializedVersion: 2
@@ -12804,7 +12868,7 @@ MonoBehaviour:
       Data4: 1219365053
     Path: event:/Ambient/MusicaSala5
   Event: 
-  EventPlayTrigger: 1
+  EventPlayTrigger: 0
   EventStopTrigger: 2
   AllowFadeout: 1
   TriggerOnce: 0
@@ -14679,6 +14743,7 @@ SceneRoots:
   - {fileID: 1304424359}
   - {fileID: 1969064131}
   - {fileID: 1926620515}
+  - {fileID: 1356311004}
   - {fileID: 1712132644}
   - {fileID: 60462107}
   - {fileID: 637203530}

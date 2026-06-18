@@ -29,13 +29,16 @@ public class ControloLaser : MonoBehaviour
     [Tooltip("O evento do FMOD para o som em loop do laser.")]
     public EventReference somLaserLoop;
 
-    // --- NOVIDADE AQUI ---
-    [Header("Controlo de Áudio FMOD (Ambiente)")]
-    [Tooltip("Ativa isto APENAS no Nível 0 para calar o ambiente")]
-    public bool isolarSomAmbiente = false;
-    [Tooltip("Arrasta para aqui o objeto que tem o Studio Event Emitter do som da sala")]
-    public StudioEventEmitter emissorAmbiente;
-    // ---------------------
+    // --- O TEU NOVO SISTEMA CINEMÁTICO ---
+    [Header("Controlo Nível 0 (Alarme -> Ambiente)")]
+    [Tooltip("Ativa isto para o nível começar com alarme e sem ambiente")]
+    public bool modoAlarmeInicial = false;
+    public StudioEventEmitter emissorAlarme;   // O alarme que está a tocar no início
+    public StudioEventEmitter emissorAmbiente; // A música que só entra quando ligas o laser
+
+    // A variável que já tínhamos criado para segurar o teu Timer!
+    public static bool primeiroDisparoFeito = false;
+    // -------------------------------------
 
     // Instância privada para gerir o ciclo de vida do som contínuo
     private FMOD.Studio.EventInstance somLaserInstancia;
@@ -46,6 +49,9 @@ public class ControloLaser : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
 
+        // Reseta o estado do timer sempre que o nível começa ou reinicia
+        primeiroDisparoFeito = false;
+
         // Define a largura inicial baseada na variável pública
         lineRenderer.startWidth = larguraLaser;
         lineRenderer.endWidth = larguraLaser;
@@ -55,9 +61,10 @@ public class ControloLaser : MonoBehaviour
             materialDoLaser = lineRenderer.sharedMaterial;
         }
 
-        // Se o laser começar já ativado, liga o som imediatamente
+        // Se o laser começar já ativado, arranca tudo logo de início
         if (laserAtivo)
         {
+            primeiroDisparoFeito = true;
             LigarSomLaser();
         }
     }
@@ -71,13 +78,11 @@ public class ControloLaser : MonoBehaviour
                 lineRenderer.material = materialDoLaser;
             }
 
-            // Garante que a largura se mantém atualizada caso alteres no Inspector em Runtime
             lineRenderer.startWidth = larguraLaser;
             lineRenderer.endWidth = larguraLaser;
 
             DesenharLaser();
 
-            // Mantém a posição 3D do áudio colada ao emissor do laser
             if (somLaserInstancia.isValid())
             {
                 somLaserInstancia.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
@@ -92,11 +97,7 @@ public class ControloLaser : MonoBehaviour
     void DesenharLaser()
     {
         List<Vector3> pontos = new List<Vector3>();
-
-        // 1. Calculamos a direção (negativo do eixo X local do ponto de disparo)
         Vector3 direcaoAtual = -pontoDisparo.right;
-
-        // 2. Aplicamos o Offset para o laser começar mais à frente da ponta
         Vector3 posicaoSaidaCorrigida = pontoDisparo.position + (direcaoAtual * offsetSaidaLaser);
 
         pontos.Add(posicaoSaidaCorrigida);
@@ -130,12 +131,10 @@ public class ControloLaser : MonoBehaviour
                         direcaoAtual.Normalize();
                     }
 
-                    // Empurra o início da reflexão para fora do colisor para evitar auto-colisão
                     posicaoAtual = hit.point + (hit.normal * 0.05f);
                 }
                 else if (hit.collider.CompareTag("Receiver"))
                 {
-                    // Tenta encontrar a porta e mantê-la aberta
                     PortaEnergetica porta = Object.FindFirstObjectByType<PortaEnergetica>();
                     if (porta != null) porta.ManterAberta();
                     break;
@@ -144,7 +143,6 @@ public class ControloLaser : MonoBehaviour
             }
             else
             {
-                // Se não bater em nada, estende o laser até à distância máxima
                 pontos.Add(posicaoAtual + (direcaoAtual * distanciaMaxima));
                 break;
             }
@@ -160,23 +158,33 @@ public class ControloLaser : MonoBehaviour
         if (!laserAtivo)
         {
             lineRenderer.positionCount = 0;
-            PararSomLaser(); // Desliga o áudio se o laser for desativado nesta função
+            PararSomLaser();
         }
         else
         {
-            LigarSomLaser(); // Liga o áudio se o laser for ativado nesta função
+            // SE FOR A PRIMEIRA VEZ QUE O JOGADOR LIGA O LASER:
+            if (!primeiroDisparoFeito)
+            {
+                // 1. Liberta o Timer
+                primeiroDisparoFeito = true;
+
+                // 2. Faz a transição de áudio cinemática
+                if (modoAlarmeInicial)
+                {
+                    // Cala o alarme para sempre
+                    if (emissorAlarme != null) emissorAlarme.Stop();
+
+                    // Começa a música ambiente
+                    if (emissorAmbiente != null) emissorAmbiente.Play();
+                }
+            }
+
+            LigarSomLaser();
         }
     }
 
-    // Função interna e pública para iniciar o som de forma segura
     public void LigarSomLaser()
     {
-        // --- NOVIDADE AQUI: CALA O AMBIENTE ---
-        if (isolarSomAmbiente && emissorAmbiente != null)
-        {
-            emissorAmbiente.Stop();
-        }
-
         if (!somLaserLoop.IsNull && !somLaserInstancia.isValid())
         {
             somLaserInstancia = RuntimeManager.CreateInstance(somLaserLoop);
@@ -185,15 +193,8 @@ public class ControloLaser : MonoBehaviour
         }
     }
 
-    // Função interna e pública para silenciar o áudio imediatamente (usada também no TimerNivel)
     public void PararSomLaser()
     {
-        // --- NOVIDADE AQUI: DEVOLVE O AMBIENTE ---
-        if (isolarSomAmbiente && emissorAmbiente != null)
-        {
-            emissorAmbiente.Play();
-        }
-
         if (somLaserInstancia.isValid())
         {
             somLaserInstancia.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
@@ -201,7 +202,6 @@ public class ControloLaser : MonoBehaviour
         }
     }
 
-    // Segurança: se o emissor for destruído ou mudares de cena, limpa o som da RAM
     void OnDestroy()
     {
         PararSomLaser();

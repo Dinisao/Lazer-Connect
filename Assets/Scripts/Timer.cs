@@ -32,13 +32,35 @@ public class TimerNivel : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 0) { Destroy(gameObject); return; }
         tempoAtual = tempoInicial;
         if (fadeImage != null) fadeImage.color = new Color(0, 0, 0, 0);
+
+        // MODIFICAÇÃO: Garante que o texto do timer nasce ESCONDIDO no início do jogo
+        if (textoTimer != null)
+        {
+            textoTimer.gameObject.SetActive(false);
+        }
     }
 
     void Update()
     {
+        // Se o laser ainda não foi ligado, o tempo não conta e o texto continua escondido!
+        if (!ControloLaser.primeiroDisparoFeito) return;
+
+        // MODIFICAÇÃO: No frame em que o laser liga, esta linha ativa o texto no ecrã!
+        if (textoTimer != null && !textoTimer.gameObject.activeSelf)
+        {
+            textoTimer.gameObject.SetActive(true);
+        }
+
         if (jaAcabou) return;
+
         tempoAtual -= Time.deltaTime;
-        if (tempoAtual <= 0) { tempoAtual = 0; StartCoroutine(SequenciaGameOver()); }
+
+        if (tempoAtual <= 0)
+        {
+            tempoAtual = 0;
+            StartCoroutine(SequenciaGameOver());
+        }
+
         AtualizarDisplay();
     }
 
@@ -61,7 +83,6 @@ public class TimerNivel : MonoBehaviour
             RuntimeManager.PlayOneShot(somExplosao, transform.position);
         }
 
-        // --- A PARTE QUE FALTA: DESLIGAR O LASER ---
         // Procura o script ControloLaser na cena e desliga-o
         ControloLaser scriptLaser = Object.FindFirstObjectByType<ControloLaser>();
         if (scriptLaser != null)
@@ -107,7 +128,6 @@ public class TimerNivel : MonoBehaviour
         }
 
         // 3. MENU PRINCIPAL
-        // ADICIONADO: Liberta o rato e torna-o visível no menu principal
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
