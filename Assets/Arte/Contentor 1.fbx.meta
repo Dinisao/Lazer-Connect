@@ -1,9 +1,24 @@
 fileFormatVersion: 2
-guid: aa3bc408429d134418eadadcb0905c24
+guid: 5dbb3547a2bf90449be2d0f4abfd4588
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Metal_Contentor
+    second: {fileID: 2800000, guid: 2b6795c36ec75714fa394a9798832f4e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Metal_Detalhes
+    second: {fileID: 2800000, guid: 949ac73d428cd4a4f9d1ed86883fe409, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Metal_Pegas
+    second: {fileID: 2800000, guid: 04f3fadfb4e59e64ca5fe705d152f674, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
