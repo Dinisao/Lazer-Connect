@@ -5,7 +5,7 @@ using FMODUnity; // IMPORTANTE: Adicionado para o Unity reconhecer o FMOD
 [RequireComponent(typeof(LineRenderer))]
 public class ControloLaser : MonoBehaviour
 {
-    private LineRenderer lineRenderer;
+    public LineRenderer lineRenderer;
 
     [Header("Configurações do Laser")]
     public Transform pontoDisparo;
