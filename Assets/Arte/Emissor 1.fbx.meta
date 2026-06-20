@@ -1,9 +1,24 @@
 fileFormatVersion: 2
-guid: f713943e33c19f147bcd3e55a9b5532c
+guid: 00ebc5ef400b2064696057099676e060
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Emissor
+    second: {fileID: 2800000, guid: fcf3ccc8c540c5f478c33250b7db220a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ParteFora_Emissor
+    second: {fileID: 2800000, guid: 697defc035f293847a9c4772e23b0606, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Vermelho_Emissor
+    second: {fileID: 2800000, guid: 1b72f2739934bcd46a9de9b8c254fc8f, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
