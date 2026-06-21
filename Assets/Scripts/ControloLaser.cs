@@ -137,6 +137,7 @@ public class ControloLaser : MonoBehaviour
                 {
                     PortaEnergetica porta = Object.FindFirstObjectByType<PortaEnergetica>();
                     if (porta != null) porta.ManterAberta();
+                    hit.collider.GetComponent<ReceiverVisual>()?.MarcarAtingido();
                     break;
                 }
                 else break;
