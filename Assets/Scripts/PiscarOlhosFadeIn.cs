@@ -15,10 +15,10 @@ public class PiscarAcordar : MonoBehaviour
 
     [Header("Ajustes de Velocidade")]
     public float multiplicadorVelocidade = 1.0f;
-    public float tempoTotalDesfoque = 7.0f;
+    public float tempoTotalDesfoque = 3.0f;
 
     [Tooltip("Espera estes segundos antes de começar a focar a visão!")]
-    public float atrasoParaFocar = 3.0f;
+    public float atrasoParaFocar = 1.5f;
 
     private GameObject player;
     private Vector3 posicaoFixa;

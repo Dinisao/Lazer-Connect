@@ -23,14 +23,16 @@ public class MenuPausa : MonoBehaviour
     {
         painelPausa.SetActive(false);
         jogoPausado = false;
-        FMODUnity.RuntimeManager.GetBus("bus:/").setPaused(false);
+
+        float volumeGuardado = PlayerPrefs.GetFloat("VolumeJogo", 1f);
+        FMODUnity.RuntimeManager.GetBus("bus:/").setVolume(volumeGuardado);
+
         if (sliderVolume != null)
-            sliderVolume.value = 1f;
+            sliderVolume.value = volumeGuardado;
     }
 
     void Update()
     {
-        // Bloqueia ESC durante game over
         if (jogoPausado && botaoResume != null && !botaoResume.activeSelf) return;
 
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
@@ -45,11 +47,9 @@ public class MenuPausa : MonoBehaviour
         painelPausa.SetActive(true);
         jogoPausado = true;
 
-        // Esconde Resume e Slider
         if (botaoResume != null)
             botaoResume.SetActive(false);
 
-        // Muda o título
         if (tituloPausa != null)
             tituloPausa.text = "The Reactor Exploded!";
 
@@ -59,7 +59,6 @@ public class MenuPausa : MonoBehaviour
 
     public void PausarJogo()
     {
-        // Restaura tudo para o estado normal de pausa
         if (botaoResume != null)
             botaoResume.SetActive(true);
         if (sliderVolume != null)
@@ -132,5 +131,6 @@ public class MenuPausa : MonoBehaviour
     public void AlterarVolume(float volume)
     {
         FMODUnity.RuntimeManager.GetBus("bus:/").setVolume(volume);
+        PlayerPrefs.SetFloat("VolumeJogo", volume);
     }
 }

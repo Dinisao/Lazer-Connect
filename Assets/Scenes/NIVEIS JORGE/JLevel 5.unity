@@ -578,9 +578,17 @@ PrefabInstance:
       value: Emissor 1
       objectReference: {fileID: 0}
     - target: {fileID: 4373775581017881394, guid: 805892301c7dc7845853d0e501169a0b, type: 3}
+      propertyPath: maxReflexoes
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373775581017881394, guid: 805892301c7dc7845853d0e501169a0b, type: 3}
       propertyPath: emissorAlarme
       value: 
       objectReference: {fileID: 1356311003}
+    - target: {fileID: 4373775581017881394, guid: 805892301c7dc7845853d0e501169a0b, type: 3}
+      propertyPath: distanciaMaxima
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4373775581017881394, guid: 805892301c7dc7845853d0e501169a0b, type: 3}
       propertyPath: emissorAmbiente
       value: 
