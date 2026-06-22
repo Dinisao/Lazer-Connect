@@ -30,11 +30,14 @@ EditorBuildSettings:
     path: Assets/Scenes/NIVEIS JORGE/JLevel 5.unity
     guid: 6251608f0e7018d44864412300e259f0
   - enabled: 1
-    path: Assets/Scenes/NIVEIS JORGE/JLevel 6.unity
+    path: Assets/Scenes/NIVEIS JORGE/JLevel 7.unity
     guid: 8289e3f94fd4f8d43a8831df554b85e9
   - enabled: 1
-    path: Assets/Scenes/NIVEIS JORGE/JLevel 7.unity
+    path: Assets/Scenes/NIVEIS JORGE/JLevel 8.unity
     guid: 3c7f2563b9e576641b9fbc9fd6cb5fd6
+  - enabled: 1
+    path: Assets/Scenes/NIVEIS JORGE/JLevel 6.unity
+    guid: 0b0a7f540b691104c813e67552048e21
   - enabled: 1
     path: Assets/Scenes/NIVEIS JORGE/Creditos.unity
     guid: 70b6e7d72a22c6d49aa18d355728bf3d
