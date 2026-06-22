@@ -1525,7 +1525,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 443358927}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1797051199}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: EscolherNivelEspecifico
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: JLevel 7
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &443358927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3077,7 +3089,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1098266149}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1797051199}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: EscolherNivelEspecifico
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: JLevel 9
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1098266149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4774,7 +4798,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1837540362}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1797051199}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: EscolherNivelEspecifico
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: JLevel 8
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1837540362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5142,7 +5178,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2016599225}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1797051199}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: EscolherNivelEspecifico
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: JLevel 10
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2016599225
 MonoBehaviour:
   m_ObjectHideFlags: 0
