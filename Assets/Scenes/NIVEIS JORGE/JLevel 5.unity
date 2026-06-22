@@ -6320,7 +6320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b090a4032f0b514dbf0cf33ade3f570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FadeTransition
-  proximaCena: Creditos
+  proximaCena: JLevel 6
   telaPreta: {fileID: 254093765}
   velocidadeFade: 1.5
 --- !u!65 &1078202690
