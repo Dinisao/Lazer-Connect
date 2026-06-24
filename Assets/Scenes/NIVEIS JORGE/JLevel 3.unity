@@ -3339,6 +3339,26 @@ PrefabInstance:
       propertyPath: emissorAmbiente
       value: 
       objectReference: {fileID: 517481455}
+    - target: {fileID: 4373775581017881394, guid: 805892301c7dc7845853d0e501169a0b, type: 3}
+      propertyPath: somLaserLoop.Path
+      value: event:/FX/LaserContinuo2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373775581017881394, guid: 805892301c7dc7845853d0e501169a0b, type: 3}
+      propertyPath: somLaserLoop.Guid.Data1
+      value: -1867122077
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373775581017881394, guid: 805892301c7dc7845853d0e501169a0b, type: 3}
+      propertyPath: somLaserLoop.Guid.Data2
+      value: 1219332401
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373775581017881394, guid: 805892301c7dc7845853d0e501169a0b, type: 3}
+      propertyPath: somLaserLoop.Guid.Data3
+      value: -1030148457
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373775581017881394, guid: 805892301c7dc7845853d0e501169a0b, type: 3}
+      propertyPath: somLaserLoop.Guid.Data4
+      value: 1934779038
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
