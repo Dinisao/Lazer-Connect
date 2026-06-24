@@ -7417,10 +7417,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -9483,8 +9483,8 @@ SceneRoots:
   - {fileID: 844440127}
   - {fileID: 833755305}
   - {fileID: 1519571836}
-  - {fileID: 1715264823}
   - {fileID: 1699930624}
+  - {fileID: 1715264823}
   - {fileID: 1505847694}
   - {fileID: 1546983121}
   - {fileID: 773450100}
