@@ -558,6 +558,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783890b99d8b01c43832a46f18a457ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  nomeMainMenu: Menu
+  nomeMenuLevels: Menu Levels
 --- !u!4 &518945738
 Transform:
   m_ObjectHideFlags: 0
