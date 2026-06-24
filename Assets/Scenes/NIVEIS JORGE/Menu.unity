@@ -462,11 +462,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FMODMenuMusicManager
   musicaMenuEvent:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1580840949
+      Data2: 1159640851
+      Data3: 1061997492
+      Data4: -1510734668
+    Path: event:/Misc/MusicaDeMenu
   nomeMainMenu: Menu
   nomeMenuLevels: Menu Levels
 --- !u!4 &750027322
