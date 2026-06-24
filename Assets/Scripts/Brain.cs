@@ -162,6 +162,7 @@ public class InteracaoFinal : MonoBehaviour
                 rbNaMao = rb;
                 objetoNaMao = rb.gameObject;
                 tipoAtual = Tipo.Armario;
+                segurandoArmario = true;
                 AtualizarEstadoMira(true);
 
                 colisorArmarioNaMao = rb.GetComponent<Collider>();
@@ -243,6 +244,7 @@ public class InteracaoFinal : MonoBehaviour
             rbNaMao.angularVelocity = Vector3.zero;
             rbNaMao.linearDamping = 0.5f;
 
+            segurandoArmario = false;
             objetoNaMao = null; rbNaMao = null; tipoAtual = Tipo.Nada;
             AtualizarEstadoMira(true);
         }
