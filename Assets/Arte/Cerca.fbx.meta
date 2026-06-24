@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 1350654418655c1419af7f13ae00f8c0
+guid: 8e88cddb96c3e784fa18a59ac8d26188
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Metal_Cerca
+    second: {fileID: 2800000, guid: 6f14d247d17fa114180a59c153f2584f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Postes_Cerca
+    second: {fileID: 2800000, guid: 1678d14f41c4bb543bee9b21f9d2889d, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
