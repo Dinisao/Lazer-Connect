@@ -51,6 +51,8 @@ public class InteracaoFinal : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
+        segurandoArmario = false;
+
         colisorJogador = GetComponent<Collider>();
         if (colisorJogador == null) colisorJogador = GetComponentInChildren<Collider>();
         if (colisorJogador == null) colisorJogador = GetComponent<CharacterController>();
