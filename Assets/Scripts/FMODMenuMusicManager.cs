@@ -60,13 +60,6 @@ public class FMODMenuMusicManager : MonoBehaviour
             {
                 instanceMusica.start();
             }
-            else if (scene.name == nomeMainMenu)
-            {
-                // Se o jogador voltou ao Main Menu a partir de um nível (via menu de pausa),
-                // fazemos Stop e Start para a música recomeçar do zero (segundo 0)
-                instanceMusica.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-                instanceMusica.start();
-            }
         }
         else
         {
