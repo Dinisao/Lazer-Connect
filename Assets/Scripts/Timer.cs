@@ -88,8 +88,6 @@ public class TimerNivel : MonoBehaviour
         if (scriptLaser != null)
         {
             scriptLaser.laserAtivo = false;
-
-            // Desliga imediatamente o som contínuo em loop do laser
             scriptLaser.PararSomLaser();
         }
 
@@ -101,17 +99,19 @@ public class TimerNivel : MonoBehaviour
             rb.AddExplosionForce(forcaExplosao, transform.position, raioExplosao, 10f, ForceMode.VelocityChange);
         }
 
-        // 2. TREMOR E FADE
+        // 2. TREMOR E FADE (Acelerado para 1 segundo no total)
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null) player = GameObject.Find("PlayerCapsule");
 
         float tempoPassado = 0f;
+        // Reduzimos à força o tempo de espera para 1 segundo (ignora o valor do inspector se quiseres)
+        float tempoAlvo = 1.5f;
         Vector3 posOriginal = (player != null) ? player.transform.position : Vector3.zero;
 
-        while (tempoPassado < duracaoSequencia)
+        while (tempoPassado < tempoAlvo)
         {
             tempoPassado += Time.deltaTime;
-            float progresso = tempoPassado / duracaoSequencia;
+            float progresso = tempoPassado / tempoAlvo;
 
             if (player != null)
             {
@@ -121,13 +121,17 @@ public class TimerNivel : MonoBehaviour
 
             if (fadeImage != null)
             {
+                // O ecrã vai escurecer num piscar de olhos (1 segundo)
                 fadeImage.color = new Color(0, 0, 0, progresso);
             }
 
             yield return null;
         }
 
-        // 3. GAME OVER - substitui o SceneManager.LoadScene(0)
+        // Garantir que fica totalmente preto no fim do loop
+        if (fadeImage != null) fadeImage.color = new Color(0, 0, 0, 1f);
+
+        // 3. GAME OVER IMEDIATO
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         Object.FindFirstObjectByType<MenuPausa>()?.MostrarGameOver();
