@@ -162,13 +162,6 @@ namespace StarterAssets
 			// if there is no input, set the target speed to 0
 			if (_input.move == Vector2.zero) targetSpeed = 0.0f;
 
-            // don't move while pressing E holding Armario
-			if (InteracaoFinal.segurandoArmario)
-            {
-                _speed = 0f;
-                return;
-            }
-
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
