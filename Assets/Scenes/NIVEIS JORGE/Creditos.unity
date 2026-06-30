@@ -179,7 +179,7 @@ MonoBehaviour:
   m_text: "CREDITOS\r\n\n\r\nLEVEL DESIGN\n\r\nJorge Costa\r\n\n\r\nGAME DESIGN\n\r\nJorge
     Costa\r\n\n\r\nPROGRAMA\xC7\xC3O\n\r\nDinis Mendes\r\n\n\r\nMODELA\xC7\xC3O 3D\n\r\nMiguel
     Melo\r\n\n\r\nDESIGN DE SOM E \xC1UDIO\n\r\nMiguel Melo\n\n\r\nARTE 2D E UI\n\r\nAndr\xE9s
-    Abreu\r\n\n\r\nTEXTURAS\n \r\nAndr\xE9s Abreu\r\n\r\n\r\nOBRIGADO POR JOGAREM!!!\r\n"
+    Abreu\r\n\n\r\nTEXTURAS\n \r\nAndr\xE9s Abreu\r\n\r\n\r\nTHANK YOU FOR PLAYING!!!\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d0d0176aa3e4d3d4481b365ad82c3413, type: 2}
   m_sharedMaterial: {fileID: -6509312058003878419, guid: d0d0176aa3e4d3d4481b365ad82c3413, type: 2}
