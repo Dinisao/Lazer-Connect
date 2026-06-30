@@ -1,9 +1,34 @@
 fileFormatVersion: 2
-guid: 4b297832f4d6b55478f36eadd8a535e6
+guid: 0635f755a535ffc40bc9c9034fb4804b
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Baterias_Palete
+    second: {fileID: 2800000, guid: b623a2cfe4eb85d43b04ad6821f0b641, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CinzaClaro_Palete
+    second: {fileID: 2800000, guid: 2982ff68a7e374a4bba9eda219b5019d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Laranja_Palete
+    second: {fileID: 2800000, guid: cbd23b8aec70fce449654599d4a8cd81, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PretoCinto_Palete
+    second: {fileID: 2800000, guid: 56d4e9d8b9fa9d141a341d677ca9d2d9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Preto_Palete
+    second: {fileID: 2800000, guid: a9541a2e9b3a8404c842084e8ca6cb93, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
